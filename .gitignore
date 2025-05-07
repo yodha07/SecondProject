@@ -1,0 +1,18 @@
+# Ignore Visual Studio folders
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.vsp
+*.psess
+*.vspx
+*.vsidx
+
+# Ignore build outputs
+*.exe
+*.dll
+*.pdb
+
+# Ignore Web.config secrets (optional)
+Web.config.user
