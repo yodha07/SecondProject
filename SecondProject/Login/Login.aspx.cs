@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SecondProject.MasterPage;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -24,7 +25,7 @@ namespace SecondProject.Login
 
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand($"SELECT * FROM Users WHERE Email='{email}' AND Password='{password}'", conn);
+            SqlCommand cmd = new SqlCommand($"SELECT * FROM Users WHERE Email = '{email}' AND Password = '{password}' AND IsActive = 1'", conn);
             SqlDataReader reader = cmd.ExecuteReader();
 
             if (reader.Read())
@@ -32,6 +33,14 @@ namespace SecondProject.Login
                 string role = reader["Role"].ToString();
                 Session["Email"] = email;
                 Session["Role"] = role;
+                int userId = Convert.ToInt32(reader["UserID"]);
+
+                reader.Close();
+
+                SqlCommand updateCmd = new SqlCommand("UPDATE Users SET LastLoginAt = @Now WHERE UserID = @UserID", conn);
+                updateCmd.Parameters.AddWithValue("@Now", DateTime.Now);
+                updateCmd.Parameters.AddWithValue("@UserID", userId);
+                updateCmd.ExecuteNonQuery();
 
                 if (role == "Admin")
                 {
@@ -44,10 +53,10 @@ namespace SecondProject.Login
             }
             else
             {
+                reader.Close();
                 lblMessage.Text = "Invalid username or password!";
             }
 
-            reader.Close();
             conn.Close();
 
         }
