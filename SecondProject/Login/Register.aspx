@@ -20,8 +20,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="form-field">
-        <asp:Label ID="lblUsername" runat="server" Text="Username:" AssociatedControlID="txtUsername" />
-        <asp:TextBox ID="txtUsername" runat="server" />
+        <asp:Label ID="lblEmail" runat="server" Text="Email:" AssociatedControlID="txtUsername" />
+        <asp:TextBox ID="txtEmail" runat="server" />
     </div>
 
     <div class="form-field">
