@@ -1,5 +1,4 @@
-﻿using SecondProject.MasterPage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -10,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace SecondProject.Login
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login1 : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["Project"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
@@ -25,7 +24,7 @@ namespace SecondProject.Login
 
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand($"SELECT * FROM Users WHERE Email = '{email}' AND Password = '{password}' AND IsActive = 1'", conn);
+            SqlCommand cmd = new SqlCommand($"SELECT * FROM Users WHERE Email = '{email}' AND Password = '{password}' AND IsActive = 1", conn);
             SqlDataReader reader = cmd.ExecuteReader();
 
             if (reader.Read())

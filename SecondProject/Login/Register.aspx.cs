@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace SecondProject.Login
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class Register1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
