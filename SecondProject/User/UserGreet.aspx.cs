@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace SecondProject.User
 {
@@ -11,7 +6,17 @@ namespace SecondProject.User
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Change 'UserEmail' to 'Email' to match the key used in the login page
+            string email = Session["Email"]?.ToString();
 
+            if (string.IsNullOrEmpty(email))
+            {
+                Response.Redirect("~/Login/Login.aspx");
+            }
+            else
+            {
+                lblGreeting.Text = "Hello, " + " (" + email + ")";
+            }
         }
     }
 }
