@@ -169,6 +169,7 @@
     <Content Include="Login\Login.aspx" />
     <Content Include="Login\Register.aspx" />
     <Content Include="sec\sec.js" />
+    <Content Include="User\MyCourses.aspx" />
     <Content Include="User\UserGreet.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -209,6 +210,13 @@
       <DependentUpon>User.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\MyCourses.aspx.cs">
+      <DependentUpon>MyCourses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\MyCourses.aspx.designer.cs">
+      <DependentUpon>MyCourses.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\UserGreet.aspx.cs">
       <DependentUpon>UserGreet.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

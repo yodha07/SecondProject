@@ -21,8 +21,6 @@ namespace SecondProject.Login
     {
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             GoogleConnect.ClientId = ConfigurationManager.AppSettings["GoogleClientId"];
