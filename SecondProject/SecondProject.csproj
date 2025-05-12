@@ -170,6 +170,7 @@
     <Content Include="Login\Register.aspx" />
     <Content Include="sec\sec.js" />
     <Content Include="User\MyCourses.aspx" />
+    <Content Include="User\Topics.aspx" />
     <Content Include="User\UserGreet.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -216,6 +217,13 @@
     </Compile>
     <Compile Include="User\MyCourses.aspx.designer.cs">
       <DependentUpon>MyCourses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Topics.aspx.cs">
+      <DependentUpon>Topics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Topics.aspx.designer.cs">
+      <DependentUpon>Topics.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\UserGreet.aspx.cs">
       <DependentUpon>UserGreet.aspx</DependentUpon>
