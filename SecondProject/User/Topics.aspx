@@ -1,20 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/User.Master" AutoEventWireup="true" CodeBehind="Topics.aspx.cs" Inherits="SecondProject.User.Topics" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <!-- Tailwind CDN -->
+    
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Custom Styles */
+        
         .active-video {
             font-weight: bold;
-            color: #3b82f6; /* Tailwind blue */
+            color: #3b82f6; 
         }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="flex justify-evenly bg-white py-8">
-        <!-- Main Video Section -->
+        
         <div class="flex-1 max-w-3xl p-6 bg-white shadow-lg rounded-lg px-15">
             <asp:MultiView ID="mvTopics" runat="server"></asp:MultiView>
             <div class="mt-4 flex justify-between">
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <!-- Playlist Section -->
+       
         <div class="w-1/3 max-w-xs ml-8 p-6 bg-white shadow-lg rounded-lg px-15">
             <h4 class="text-2xl font-semibold text-blue-600 mb-4">Playlist</h4>
             <asp:Repeater ID="rptPlaylist" runat="server">
