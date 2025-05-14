@@ -83,7 +83,6 @@ namespace SecondProject.User
                     }
                     catch (Exception ex)
                     {
-                        // Handle any exceptions (log it or show an error message)
                         Response.Write("Error: " + ex.Message);
                     }
                 }
