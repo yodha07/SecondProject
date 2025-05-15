@@ -18,8 +18,10 @@
                                 CssClass="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition" />
                             <asp:Button ID="btnMCQ" runat="server" Text="MCQs" CommandArgument='<%# Eval("SubCourseId") %>' OnCommand="Mcq_Click"
                                 CssClass="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition" />
-                            <asp:Button ID="btnCertificate" runat="server" Text="Certificate" CommandArgument='<%# Eval("SubCourseId") %>' OnCommand="Certificate_Click"
-                                CssClass="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition" />
+                            <ItemTemplate>
+                                <asp:LinkButton ID="btnCertificate" runat="server" Text="Certificate" CommandArgument='<%# Eval("SubCourseId") %>' OnCommand="Certificate_Click"
+                                CssClass="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition" ></asp:LinkButton>
+                            </ItemTemplate>
                         </div>
                     </div>
                 </div>

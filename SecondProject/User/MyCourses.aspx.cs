@@ -1,11 +1,18 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using SecondProject.MasterPage;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace SecondProject.User
 {
@@ -56,9 +63,9 @@ namespace SecondProject.User
         INNER JOIN User_SubCourseAccess usa ON sc.SubCourseId = usa.SubCourseId
         WHERE usa.UserId = @UserId";
 
-            using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString))
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
             {
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                SqlCommand cmd = new SqlCommand(query, conn);
                 {
                     cmd.Parameters.AddWithValue("@UserId", userId);
                     try
@@ -117,10 +124,118 @@ namespace SecondProject.User
 
         protected void Certificate_Click(object sender, CommandEventArgs e)
         {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
+            LinkButton btn = (LinkButton)sender;
             int subCourseId = Convert.ToInt32(e.CommandArgument);
-            Response.Redirect($"Certificate.aspx?scid={subCourseId}");
+            int userId = GetLoggedInUserId();
+            string userName = "";
+            string courseTitle = "";
+
+            SqlCommand cmdUser = new SqlCommand("SELECT Fullname FROM [User] WHERE UserId = @UserId", conn);
+            conn.Open();
+            {
+                cmdUser.Parameters.AddWithValue("@UserId", userId);
+                userName = cmdUser.ExecuteScalar()?.ToString();
+            }
+            SqlCommand cmdCourse = new SqlCommand(@"SELECT mc.Title AS MasterCourseTitle
+    FROM SubCourse sc
+    JOIN MasterCourse mc ON sc.MasterCourseId = mc.MasterCourseId
+    WHERE sc.SubCourseId = @SubCourseId", conn);
+            {
+                cmdCourse.Parameters.AddWithValue("@SubCourseId", subCourseId);
+                courseTitle = cmdCourse.ExecuteScalar()?.ToString();
+            }
+
+            string fileName = $"Certificate_{userName}_{DateTime.Now:dd-MM-yyyy_HH-mm-ss}.pdf";
+            string filePath = "Certificates/" + fileName;
+            string fullPath = Server.MapPath("~/" + filePath);
+
+            string certificateDir = Server.MapPath("~/Certificates");
+            if (!Directory.Exists(certificateDir))
+            {
+                Directory.CreateDirectory(certificateDir);
+            }
+
+            string logo = Server.MapPath("~/logo.jpg");
+            string base64 = "";
+            if(File.Exists(logo))
+            {
+                byte[] imageBytes = File.ReadAllBytes(logo);
+                base64 = Convert.ToBase64String(imageBytes);
+            }
+
+            string htmlContent = $@"
+                <html>
+                    <head>
+                        <style>
+                            body {{
+                                font-family: Arial, sans-serif;
+                                text-align: center;
+                            }}
+                            h1 {{
+                                color: #4CAF50;
+                            }}
+                            p {{
+                                font-size: 20px;
+                            }}
+                            img{{
+                                width: 200px;
+                                height: 200px;
+                            }}
+                        </style>
+                    </head>
+                    <body>
+                        <h1>Certificate of Completion</h1>
+                        <img src='data:image/png;base64,{base64}'/>
+                        <p>This is to certify that</p>
+                        <h2>{userName}</h2>
+                        <p>has successfully completed the course</p>
+                        <h2>{courseTitle}</h2>
+                        <p>on {DateTime.Now.ToString("dd/MM/yyyy")}</p>
+                    </body>
+                </html>";
+
+            byte[] pdfBytes = GeneratePdfFromHtml(htmlContent);
+
+            File.WriteAllBytes(fullPath, pdfBytes);
+
+            string IssuedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            SqlCommand insertCmd = new SqlCommand($"INSERT INTO Certificate (UserId, SubCourseId, IssuedDate, CertificatePath) VALUES ('{userId}', '{subCourseId}',  '{IssuedDate}', @CertificatePath)", conn);
+            {
+                insertCmd.Parameters.AddWithValue("@CertificatePath", "/" + filePath);  
+
+                insertCmd.ExecuteNonQuery();
+            }
+
+            if(System.IO.File.Exists(fullPath))
+            {
+                Response.ContentType = "application/pdf";
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(fullPath));
+                Response.TransmitFile(fullPath);
+                Response.End();
+            }
+            else
+            {
+                Response.Write("Not found");
+            }
         }
 
+        private byte[] GeneratePdfFromHtml(string htmlContent)
+        {
+            MemoryStream memoryStream = new MemoryStream();
+            {
+                Document document = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
+                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+                document.Open();
 
+                StringReader stringReader = new StringReader(htmlContent);
+                {
+                    XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, stringReader);
+                }
+
+                document.Close();
+                return memoryStream.ToArray();
+            }
+        }
     }
 }
