@@ -21,8 +21,6 @@ namespace SecondProject.Login
     {
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
-
-
         protected void Page_Load(object sender, EventArgs e)
         {
             GoogleConnect.ClientId = ConfigurationManager.AppSettings["GoogleClientId"];
@@ -49,7 +47,6 @@ namespace SecondProject.Login
 
                     if (reader.Read())
                     {
-                        // Existing user
                         int userId = Convert.ToInt32(reader["UserId"]);
                         string role = reader["Role"].ToString();
 
@@ -66,8 +63,8 @@ namespace SecondProject.Login
                     }
                     else
                     {
-                        // New user - insert
-                        reader.Close(); // IMPORTANT before reusing connection
+                        
+                        reader.Close(); 
 
                         SqlCommand insertCmd = new SqlCommand(@"
                     INSERT INTO [User] (FullName, Email, Role, LastLogin)
