@@ -167,10 +167,8 @@ namespace SecondProject.User
                 Directory.CreateDirectory(certificateDir);
             }
 
-            string logoPath = Server.MapPath("~/Images/Logog.jpg");
+            string logoPath = Server.MapPath("~/Images/Logo.png");
             string base64Logo = "";
-            
-            Response.Write("Image Found: " + File.Exists(logoPath));
 
             if (File.Exists(logoPath))
             {
@@ -179,36 +177,32 @@ namespace SecondProject.User
             }
 
             string htmlContent = $@"
-    <html>
-        <head>
-            <style>
-                body {{
-                    font-family: Arial, sans-serif;
-                    text-align: center;
-                }}
-                h1 {{
-                    color: #4CAF50;
-                }}
-                p {{
-                    font-size: 20px;
-                }}
-                img {{
-                    width: 150px;
-                    height: auto;
-                    margin-bottom: 20px;
-                }}
-            </style>
-        </head>
-        <body>
-            <h1>Certificate of Completion</h1>
-            <img src='data:image/jpeg;base64,{base64Logo}' alt='Logo'/>
-            <p>This is to certify that</p>
-            <h2>{userName}</h2>
-            <p>has successfully completed the course</p>
-            <h2>{courseTitle}</h2>
-            <p>on {DateTime.Now:dd/MM/yyyy}</p>
-        </body>
-    </html>";
+            <html>
+                <head>
+                    <style>
+                        body {{
+                            font-family: Arial, sans-serif;
+                            text-align: center;
+                        }}
+                        h1 {{
+                            color: #4CAF50;
+                        }}
+                        p {{
+                            font-size: 20px;
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <h1>Certificate of Completion</h1>
+                    <p>This is to certify that</p>
+                    <h2>{userName}</h2>
+                    <p>has successfully completed the course</p>
+                    <h2>{courseTitle}</h2>
+                    <p>on {DateTime.Now:dd/MM/yyyy}</p>
+                </body>
+            </html>";
+
+
 
 
             byte[] pdfBytes = GeneratePdfFromHtml(htmlContent);
@@ -243,13 +237,24 @@ namespace SecondProject.User
 
         private byte[] GeneratePdfFromHtml(string htmlContent)
         {
-            MemoryStream memoryStream = new MemoryStream();
+            string logoPath = Server.MapPath("~/Images/Logo.png");
+
+            using (MemoryStream memoryStream = new MemoryStream())
             {
                 Document document = new Document(PageSize.A4, 10f, 10f, 10f, 10f);
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
                 document.Open();
 
-                StringReader stringReader = new StringReader(htmlContent);
+
+                if (File.Exists(logoPath))
+                {
+                    iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logoPath);
+                    logo.ScaleToFit(150f, 150f);
+                    logo.Alignment = Element.ALIGN_CENTER;
+                    document.Add(logo);
+                }
+
+                using (StringReader stringReader = new StringReader(htmlContent))
                 {
                     XMLWorkerHelper.GetInstance().ParseXHtml(writer, document, stringReader);
                 }
@@ -258,5 +263,6 @@ namespace SecondProject.User
                 return memoryStream.ToArray();
             }
         }
+
     }
 }
