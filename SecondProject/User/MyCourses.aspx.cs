@@ -156,7 +156,8 @@ namespace SecondProject.User
                 Directory.CreateDirectory(certificateDir);
             }
 
-            string logo = Server.MapPath("~/logo.jpg");
+            string logo = Server.MapPath("~/Images/logo.jpg");
+            Response.Write("<img src='" + logo);
             string base64 = "";
             if(File.Exists(logo))
             {
