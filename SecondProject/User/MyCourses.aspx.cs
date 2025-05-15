@@ -131,20 +131,31 @@ namespace SecondProject.User
             string userName = "";
             string courseTitle = "";
 
-            SqlCommand cmdUser = new SqlCommand("SELECT Fullname FROM [User] WHERE UserId = @UserId", conn);
             conn.Open();
+
+            // First command to get userName
+            using (SqlCommand cmdUser = new SqlCommand("SELECT Fullname FROM [User] WHERE UserId = @UserId", conn))
             {
                 cmdUser.Parameters.AddWithValue("@UserId", userId);
-                userName = cmdUser.ExecuteScalar()?.ToString();
+                object userResult = cmdUser.ExecuteScalar();
+                if (userResult != null)
+                    userName = userResult.ToString();
             }
-            SqlCommand cmdCourse = new SqlCommand(@"SELECT mc.Title AS MasterCourseTitle
+
+            // Second command to get courseTitle
+            using (SqlCommand cmdCourse = new SqlCommand(@"SELECT mc.Title AS MasterCourseTitle
     FROM SubCourse sc
     JOIN MasterCourse mc ON sc.MasterCourseId = mc.MasterCourseId
-    WHERE sc.SubCourseId = @SubCourseId", conn);
+    WHERE sc.SubCourseId = @SubCourseId", conn))
             {
                 cmdCourse.Parameters.AddWithValue("@SubCourseId", subCourseId);
-                courseTitle = cmdCourse.ExecuteScalar()?.ToString();
+                object titleResult = cmdCourse.ExecuteScalar();
+                if (titleResult != null)
+                    courseTitle = titleResult.ToString();
             }
+
+            conn.Close();
+
 
             string fileName = $"Certificate_{userName}_{DateTime.Now:dd-MM-yyyy_HH-mm-ss}.pdf";
             string filePath = "Certificates/" + fileName;
@@ -156,59 +167,68 @@ namespace SecondProject.User
                 Directory.CreateDirectory(certificateDir);
             }
 
-            string logo = Server.MapPath("~/Images/logo.jpg");
-            Response.Write("<img src='" + logo);
-            string base64 = "";
-            if(File.Exists(logo))
+            string logoPath = Server.MapPath("~/Images/Logog.jpg");
+            string base64Logo = "";
+            
+            Response.Write("Image Found: " + File.Exists(logoPath));
+
+            if (File.Exists(logoPath))
             {
-                byte[] imageBytes = File.ReadAllBytes(logo);
-                base64 = Convert.ToBase64String(imageBytes);
+                byte[] imageBytes = File.ReadAllBytes(logoPath);
+                base64Logo = Convert.ToBase64String(imageBytes);
             }
 
             string htmlContent = $@"
-                <html>
-                    <head>
-                        <style>
-                            body {{
-                                font-family: Arial, sans-serif;
-                                text-align: center;
-                            }}
-                            h1 {{
-                                color: #4CAF50;
-                            }}
-                            p {{
-                                font-size: 20px;
-                            }}
-                            img{{
-                                width: 200px;
-                                height: 200px;
-                            }}
-                        </style>
-                    </head>
-                    <body>
-                        <h1>Certificate of Completion</h1>
-                        <img src='data:image/png;base64,{base64}'/>
-                        <p>This is to certify that</p>
-                        <h2>{userName}</h2>
-                        <p>has successfully completed the course</p>
-                        <h2>{courseTitle}</h2>
-                        <p>on {DateTime.Now.ToString("dd/MM/yyyy")}</p>
-                    </body>
-                </html>";
+    <html>
+        <head>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                }}
+                h1 {{
+                    color: #4CAF50;
+                }}
+                p {{
+                    font-size: 20px;
+                }}
+                img {{
+                    width: 150px;
+                    height: auto;
+                    margin-bottom: 20px;
+                }}
+            </style>
+        </head>
+        <body>
+            <h1>Certificate of Completion</h1>
+            <img src='data:image/jpeg;base64,{base64Logo}' alt='Logo'/>
+            <p>This is to certify that</p>
+            <h2>{userName}</h2>
+            <p>has successfully completed the course</p>
+            <h2>{courseTitle}</h2>
+            <p>on {DateTime.Now:dd/MM/yyyy}</p>
+        </body>
+    </html>";
+
 
             byte[] pdfBytes = GeneratePdfFromHtml(htmlContent);
 
             File.WriteAllBytes(fullPath, pdfBytes);
 
             string IssuedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            SqlCommand insertCmd = new SqlCommand($"INSERT INTO Certificate (UserId, SubCourseId, IssuedDate, CertificatePath) VALUES ('{userId}', '{subCourseId}',  '{IssuedDate}', @CertificatePath)", conn);
-            {
-                insertCmd.Parameters.AddWithValue("@CertificatePath", "/" + filePath);  
+            conn.Open();  // REOPEN after reading
+            SqlCommand insertCmd = new SqlCommand(@"
+    INSERT INTO Certificate (UserId, SubCourseId, IssuedDate, CertificatePath) 
+    VALUES (@UserId, @SubCourseId, @IssuedDate, @CertificatePath)", conn);
+            insertCmd.Parameters.AddWithValue("@UserId", userId);
+            insertCmd.Parameters.AddWithValue("@SubCourseId", subCourseId);
+            insertCmd.Parameters.AddWithValue("@IssuedDate", IssuedDate);
+            insertCmd.Parameters.AddWithValue("@CertificatePath", "/" + filePath);
+            insertCmd.ExecuteNonQuery();
+            conn.Close();
 
-                insertCmd.ExecuteNonQuery();
-            }
 
-            if(System.IO.File.Exists(fullPath))
+            if (System.IO.File.Exists(fullPath))
             {
                 Response.ContentType = "application/pdf";
                 Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(fullPath));
