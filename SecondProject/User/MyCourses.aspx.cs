@@ -133,8 +133,7 @@ namespace SecondProject.User
 
             conn.Open();
 
-            // First command to get userName
-            using (SqlCommand cmdUser = new SqlCommand("SELECT Fullname FROM [User] WHERE UserId = @UserId", conn))
+            SqlCommand cmdUser = new SqlCommand("SELECT Fullname FROM [User] WHERE UserId = @UserId", conn);
             {
                 cmdUser.Parameters.AddWithValue("@UserId", userId);
                 object userResult = cmdUser.ExecuteScalar();
@@ -142,11 +141,10 @@ namespace SecondProject.User
                     userName = userResult.ToString();
             }
 
-            // Second command to get courseTitle
-            using (SqlCommand cmdCourse = new SqlCommand(@"SELECT mc.Title AS MasterCourseTitle
+            SqlCommand cmdCourse = new SqlCommand(@"SELECT mc.Title AS MasterCourseTitle
     FROM SubCourse sc
     JOIN MasterCourse mc ON sc.MasterCourseId = mc.MasterCourseId
-    WHERE sc.SubCourseId = @SubCourseId", conn))
+    WHERE sc.SubCourseId = @SubCourseId", conn);
             {
                 cmdCourse.Parameters.AddWithValue("@SubCourseId", subCourseId);
                 object titleResult = cmdCourse.ExecuteScalar();
