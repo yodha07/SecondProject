@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/Admin.Master" AutoEventWireup="true" CodeBehind="AdminGreet.aspx.cs" Inherits="SecondProject.Admin.AdminGreet" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/Admin.Master" AutoEventWireup="true" CodeBehind="adminchat.aspx.cs" Inherits="SecondProject.Admin.adminchat" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
         <style>
@@ -200,3 +200,4 @@
    </script>
 
 </asp:Content>
+
