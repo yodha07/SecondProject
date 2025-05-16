@@ -177,6 +177,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\adminchat.aspx" />
     <Content Include="Admin\AdminGreet.aspx" />
     <Content Include="assets\css\animate.css" />
     <Content Include="assets\css\flex-slider.css" />
@@ -226,6 +227,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\adminchat.aspx.cs">
+      <DependentUpon>adminchat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\adminchat.aspx.designer.cs">
+      <DependentUpon>adminchat.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\AdminGreet.aspx.cs">
       <DependentUpon>AdminGreet.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
