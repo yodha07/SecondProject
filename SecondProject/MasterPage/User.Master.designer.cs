@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace elearning
+namespace SecondProject.MasterPage
 {
 
 
-    public partial class Site4
+    public partial class User
     {
 
         /// <summary>
