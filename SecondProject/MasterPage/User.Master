@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+
 <!-- Bootstrap core CSS -->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -62,9 +64,11 @@
     </nav>
 
     <!-- PAGE CONTENT -->
-    <div class="container-fluid mt-3">
-        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-    </div>
+    <form id="form1" runat="server">
+        <div class="container-fluid mt-3">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+    </form>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

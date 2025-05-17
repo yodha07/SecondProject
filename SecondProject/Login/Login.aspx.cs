@@ -177,7 +177,7 @@ namespace SecondProject.Login
 
                 {
 
-                    Response.Redirect("~/User/UserGreet.aspx");
+                    Response.Redirect("~/User/MyCourses.aspx");
 
                 }
 

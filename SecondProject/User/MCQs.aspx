@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
         <h1 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">MCQs for
             <asp:Label ID="TitleLabel" runat="server" CssClass="text-indigo-600 font-semibold" />

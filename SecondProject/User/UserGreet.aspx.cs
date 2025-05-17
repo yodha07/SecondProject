@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 
 namespace SecondProject.User
 {
@@ -16,11 +20,11 @@ namespace SecondProject.User
             }
             else
             {
-                lblGreeting.Text = "Hello, " + " (" + email + ")";
+                //lblGreeting.Text = "Hello, " + " (" + email + ")";
             }
             
        
-            string cn = ConfigurationManager.ConnectionStrings["aprilbatchConnectionString"].ConnectionString;
+            string cn = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
             conn = new SqlConnection(cn);
             conn.Open();
             Session["us"] = TextBox2.Text;
