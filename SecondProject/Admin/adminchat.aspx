@@ -117,8 +117,9 @@
         }
 
     </style>
-    <div>
     <form id="form1" runat="server">
+    <div>
+    
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
@@ -183,8 +184,9 @@
                
     </div>
 
-</form>
+
         </div>
+        </form>
    <script type="text/javascript">
        function scrollToBottom() {
            var chatDiv = document.getElementById("chatMessages");
