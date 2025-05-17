@@ -20,9 +20,6 @@
                 <asp:Button ID="btnPrev" runat="server" Text="Previous" OnClick="btnPrev_Click" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300" />
                 <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300" />
             </div>
-            <asp:LinkButton ID="btnCertificate" runat="server" Text="Certificate" OnCommand="Certificate_Click"
-                CssClass="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition">
-            </asp:LinkButton>
         </div>
 
         <div class="w-1/3 max-w-xs ml-8 p-6 bg-white shadow-lg rounded-lg px-15">
@@ -44,6 +41,9 @@
                 CssClass="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition" />
             <asp:Button ID="btnMCQ" runat="server" Text="MCQs" CommandArgument='<%# Eval("SubCourseId") %>' OnCommand="Mcq_Click"
                 CssClass="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition" />
+            <asp:LinkButton ID="btnCertificate" runat="server" Text="Certificate" OnCommand="Certificate_Click"
+                CssClass="w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600 transition">
+            </asp:LinkButton>
         </div>
     </div>
 </asp:Content>
