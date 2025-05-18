@@ -354,7 +354,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assignments\" />
     <Folder Include="Images\" />
+    <Folder Include="Thumbnails\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

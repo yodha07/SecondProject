@@ -8,6 +8,9 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
+using SecondProject.MasterPage;
+using static SecondProject.User.MyCourses;
 
 namespace SecondProject.User
 {
@@ -190,7 +193,7 @@ namespace SecondProject.User
                 {
                     userID = Convert.ToInt32(rdr["UserId"]);
                     Session["UserId"] = userID;
-                    Response.Write("UserId: " + userID);
+                    Label1.Text = "UserId:" + Session["UserId"].ToString();
                 }
                 conn.Close();
             }
@@ -417,7 +420,7 @@ namespace SecondProject.User
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                SqlCommand cmd = new SqlCommand($"UPDATE User_SubCourseProgress SET VideosWatched = 1 WHERE UserId = '{userId}' AND SubCourseId = '{subCourseId}' AND VideosWatched <> 1", conn);
+                SqlCommand cmd = new SqlCommand($"INSERT INTO User_SubCourseProgress (UserId, SubCourseId, VideosWatched) VALUES ('{userId}', '{subCourseId}', 1)", conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
