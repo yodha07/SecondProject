@@ -17,6 +17,13 @@ namespace SecondProject.Admin
         SqlConnection conn;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            string role = Session["Role"].ToString() ;
+            if(role != "Admin")
+            {
+                Response.Redirect("~/Login/Login.aspx");
+            }
+
             string cs = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
             conn = new SqlConnection(cs);
             conn.Open();
