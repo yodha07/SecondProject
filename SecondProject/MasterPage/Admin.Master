@@ -5,119 +5,153 @@
 <head runat="server">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><asp:ContentPlaceHolder ID="TitleContent" runat="server" /></title>
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
 
     <!-- Bootstrap & FontAwesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <asp:ContentPlaceHolder ID="head" runat="server" />
 
     <style>
-        body {
-            padding-top: 70px; /* Prevent content from being hidden under fixed navbar */
-        }
+/*        body {
+            padding-top: 70px;
+        }*/
     </style>
 
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
-    
-<%--    <form id="form1" runat="server">--%>
-        <!-- NAVIGATION BAR (Fixed-Top, Responsive) -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="#">assskEdu</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav mr-auto">
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-dark text-white fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="d-flex align-items-center justify-content-between h-16">
+                <!-- Logo -->
+                <div class="d-flex align-items-center">
+                    <a href="#" class="text-xl font-bold text-white">assskEdu</a>
+                </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#top">Dashboard</a>
-                    </li>
+                <!-- Hamburger -->
+                <div class="d-md-none">
+                    <button type="button" class="text-light" onclick="document.getElementById('admin-mobile-menu').classList.toggle('d-none')">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                </div>
 
-                    <!-- Master Course -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="masterCourseDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Master Course
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="masterCourseDropdown">
+                <!-- Links -->
+                <div class="d-none d-md-flex gap-3 my-2 align-items-center">
+                    <a href="#top" class="text-light hover:text-info mx-5">Dashboard</a>
+
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Master Course</a>
+                        <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Add Master Course</a>
                             <a class="dropdown-item" href="#master-course-list">Master Course List</a>
                         </div>
-                    </li>
+                    </div>
 
-                    <!-- Sub Course -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="subCourseDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Sub Course
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="subCourseDropdown">
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Sub Course</a>
+                        <div class="dropdown-menu">
                             <a class="dropdown-item" href="Webform2.aspx">Add Sub Course</a>
                             <a class="dropdown-item" href="#">Sub Course List</a>
                         </div>
-                    </li>
+                    </div>
 
-                    <!-- Topics -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="topicsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Topics
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="topicsDropdown">
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Topics</a>
+                        <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Add Topics</a>
                             <a class="dropdown-item" href="#">Topic List</a>
                         </div>
-                    </li>
+                    </div>
 
-                    <!-- Materials -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="materialsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Materials
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="materialsDropdown">
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Materials</a>
+                        <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Add Materials</a>
                             <a class="dropdown-item" href="#">Assignment List</a>
                             <a class="dropdown-item" href="#">MCQ List</a>
                         </div>
-                    </li>
+                    </div>
 
-                    <!-- Memberships -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="membershipsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Memberships
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="membershipsDropdown">
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Memberships</a>
+                        <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Add Memberships</a>
                             <a class="dropdown-item" href="#">Memberships List</a>
                         </div>
-                    </li>
+                    </div>
 
-                    <!-- Static Links -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#courses">All Courses List</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#chat">Chat</a>
-                    </li>
-                </ul>
-
-                <!-- Right-side Logout -->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" href="logout.aspx">Logout</a>
-                    </li>
-                </ul>
+                    <a href="#courses" class="text-light hover:text-info">All Courses List</a>
+                    <a href="#chat" class="text-light hover:text-info">Chat</a>
+                    <a href="logout.aspx" class="text-danger font-weight-bold ml-3">Logout</a>
+                </div>
             </div>
-        </nav>
-
-        <!-- Page Content -->
-        <div class="container-fluid mt-3">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
-    
-        <%--</form>--%>
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
+
+        <!-- Mobile Menu -->
+        <div class="d-md-none d-none px-4 pt-2 pb-3" id="admin-mobile-menu">
+            <a href="#top" class="d-block text-white py-1">Dashboard</a>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Master Course</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add Master Course</a>
+                    <a class="dropdown-item" href="#master-course-list">Master Course List</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Sub Course</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="Webform2.aspx">Add Sub Course</a>
+                    <a class="dropdown-item" href="#">Sub Course List</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Topics</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add Topics</a>
+                    <a class="dropdown-item" href="#">Topic List</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Materials</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add Materials</a>
+                    <a class="dropdown-item" href="#">Assignment List</a>
+                    <a class="dropdown-item" href="#">MCQ List</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Memberships</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add Memberships</a>
+                    <a class="dropdown-item" href="#">Memberships List</a>
+                </div>
+            </div>
+
+            <a href="#courses" class="d-block text-white py-1">All Courses List</a>
+            <a href="#chat" class="d-block text-white py-1">Chat</a>
+            <a href="logout.aspx" class="d-block text-danger font-weight-bold mt-2">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container-fluid mt-3">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
+
+    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
