@@ -21,14 +21,8 @@ namespace SecondProject.User
             conn.Open();
             if (!IsPostBack)
             {
-                course();
-                complete_course();
-                incomplete_course();
-                piechart();
-                progress_bar();
-                month_duration();
                 Lastlogin();
-                user_subcourse_fetch();
+                                                                            
             }
 
 
@@ -129,7 +123,7 @@ namespace SecondProject.User
                 {
                     int current_days = (int)month.TotalDays;
                     int daysRemaining = 30 - current_days;
-                    Label1.Text = $"You Have {daysRemaining} Days Reamining";
+                    Label1.Text = $"You Have {daysRemaining} Days Remaining";
                 }
                 else
                 {
@@ -157,11 +151,30 @@ namespace SecondProject.User
                     DateTime latestlogin = DateTime.Now;
                     string query2 = $"exec latest_login '{user}' , '{latestlogin:yyyy-MM-dd HH:mm:ss}'";
                     SqlCommand cmd2 = new SqlCommand(query2, conn);
-                    cmd2.ExecuteNonQuery();
+                    int r=cmd2.ExecuteNonQuery();
+                    if(r>0)
+                    {
+                        course();
+                        complete_course();
+                        incomplete_course();
+                        piechart();
+                        progress_bar();
+                        month_duration();
+
+                        user_subcourse_fetch();
+                    }
+
                 }
                 else
                 {
-                    Label2.Text = "you have not login from past 1 week";
+                    //Response.Write("<script>alert('You have not Login from past 1 Week\nPlease contact Admin');</script>");
+                    string script = "alert('You have not Login from past 1 Week\\nPlease contact Admin'); window.location='~/Login/Login.aspx';";
+                    ClientScript.RegisterStartupScript(this.GetType(), "alertAndRedirect", script, true);
+                    Session.Clear();
+                    Session.Abandon();
+                    //Response.Redirect("~/Login/Login.aspx");
+                    //Label2.Text = "you have not login from past 1 week";
+
                 }
             }
         }

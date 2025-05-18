@@ -46,6 +46,9 @@
     <Reference Include="ASPSnippets.GoogleAPI">
       <HintPath>..\..\..\..\Downloads\ASPSnippets.GoogleAPI.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.Cryptography.2.6.0\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
     </Reference>
@@ -139,6 +142,9 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Razorpay, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Razorpay.3.1.4\lib\net47\Razorpay.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
     </Reference>
@@ -194,9 +200,22 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\AddMasterCourse.aspx" />
+    <Content Include="Admin\AddMasterPlanName.aspx" />
+    <Content Include="Admin\AddMaterial.aspx" />
+    <Content Include="Admin\AddMembership.aspx" />
+    <Content Include="Admin\AddSubCourse.aspx" />
+    <Content Include="Admin\AddTopics.aspx" />
     <Content Include="Admin\adminchat.aspx" />
     <Content Include="Admin\admindashboard.aspx" />
     <Content Include="Admin\AdminGreet.aspx" />
+    <Content Include="Admin\AssignmentList.aspx" />
+    <Content Include="Admin\MasterCourseList.aspx" />
+    <Content Include="Admin\MasterPlanNameList.aspx" />
+    <Content Include="Admin\MCQList.aspx" />
+    <Content Include="Admin\MembershipList.aspx" />
+    <Content Include="Admin\SubCourseList.aspx" />
+    <Content Include="Admin\TopicList.aspx" />
     <Content Include="assets\css\animate.css" />
     <Content Include="assets\css\flex-slider.css" />
     <Content Include="assets\css\fontawesome.css" />
@@ -232,11 +251,16 @@
     <Content Include="Login\Login.aspx" />
     <Content Include="Login\Register.aspx" />
     <Content Include="sec\sec.js" />
+    <Content Include="User\Cart.aspx" />
+    <Content Include="User\course_Membership.aspx" />
+    <Content Include="User\emptyCart.aspx" />
+    <Content Include="User\generatepdf.aspx" />
     <Content Include="User\MCQs.aspx" />
     <Content Include="User\MyCourses.aspx" />
     <Content Include="User\Topics.aspx" />
     <Content Include="User\UserDashBoard.aspx" />
     <Content Include="User\UserGreet.aspx" />
+    <Content Include="User\WebForm1.aspx" />
     <Content Include="vendor\bootstrap\css\bootstrap.min.css" />
     <Content Include="vendor\bootstrap\js\bootstrap.min.js" />
     <Content Include="vendor\jquery\jquery.js" />
@@ -246,6 +270,48 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\AddMasterCourse.aspx.cs">
+      <DependentUpon>AddMasterCourse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddMasterCourse.aspx.designer.cs">
+      <DependentUpon>AddMasterCourse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddMasterPlanName.aspx.cs">
+      <DependentUpon>AddMasterPlanName.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddMasterPlanName.aspx.designer.cs">
+      <DependentUpon>AddMasterPlanName.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddMaterial.aspx.cs">
+      <DependentUpon>AddMaterial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddMaterial.aspx.designer.cs">
+      <DependentUpon>AddMaterial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddMembership.aspx.cs">
+      <DependentUpon>AddMembership.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddMembership.aspx.designer.cs">
+      <DependentUpon>AddMembership.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddSubCourse.aspx.cs">
+      <DependentUpon>AddSubCourse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddSubCourse.aspx.designer.cs">
+      <DependentUpon>AddSubCourse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddTopics.aspx.cs">
+      <DependentUpon>AddTopics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddTopics.aspx.designer.cs">
+      <DependentUpon>AddTopics.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\adminchat.aspx.cs">
       <DependentUpon>adminchat.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -266,6 +332,55 @@
     </Compile>
     <Compile Include="Admin\AdminGreet.aspx.designer.cs">
       <DependentUpon>AdminGreet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AssignmentList.aspx.cs">
+      <DependentUpon>AssignmentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AssignmentList.aspx.designer.cs">
+      <DependentUpon>AssignmentList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MasterCourseList.aspx.cs">
+      <DependentUpon>MasterCourseList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MasterCourseList.aspx.designer.cs">
+      <DependentUpon>MasterCourseList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MasterPlanNameList.aspx.cs">
+      <DependentUpon>MasterPlanNameList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MasterPlanNameList.aspx.designer.cs">
+      <DependentUpon>MasterPlanNameList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MCQList.aspx.cs">
+      <DependentUpon>MCQList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MCQList.aspx.designer.cs">
+      <DependentUpon>MCQList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\MembershipList.aspx.cs">
+      <DependentUpon>MembershipList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\MembershipList.aspx.designer.cs">
+      <DependentUpon>MembershipList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SubCourseList.aspx.cs">
+      <DependentUpon>SubCourseList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SubCourseList.aspx.designer.cs">
+      <DependentUpon>SubCourseList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TopicList.aspx.cs">
+      <DependentUpon>TopicList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TopicList.aspx.designer.cs">
+      <DependentUpon>TopicList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -296,6 +411,34 @@
       <DependentUpon>User.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\Cart.aspx.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Cart.aspx.designer.cs">
+      <DependentUpon>Cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\course_Membership.aspx.cs">
+      <DependentUpon>course_Membership.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\course_Membership.aspx.designer.cs">
+      <DependentUpon>course_Membership.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\emptyCart.aspx.cs">
+      <DependentUpon>emptyCart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\emptyCart.aspx.designer.cs">
+      <DependentUpon>emptyCart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\generatepdf.aspx.cs">
+      <DependentUpon>generatepdf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\generatepdf.aspx.designer.cs">
+      <DependentUpon>generatepdf.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\MCQs.aspx.cs">
       <DependentUpon>MCQs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -331,6 +474,13 @@
     <Compile Include="User\UserGreet.aspx.designer.cs">
       <DependentUpon>UserGreet.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="MasterPage\Admin.Master" />
@@ -354,7 +504,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assignments\" />
     <Folder Include="Images\" />
+    <Folder Include="Thumbnails\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

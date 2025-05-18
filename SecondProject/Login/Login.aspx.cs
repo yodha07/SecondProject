@@ -56,10 +56,10 @@ namespace SecondProject.Login
 
                         reader.Close();
 
-                        SqlCommand updateCmd = new SqlCommand("UPDATE [User] SET LastLogin = @Now WHERE UserId = @UserId", conn);
-                        updateCmd.Parameters.AddWithValue("@Now", DateTime.Now);
-                        updateCmd.Parameters.AddWithValue("@UserId", userId);
-                        updateCmd.ExecuteNonQuery();
+                        //SqlCommand updateCmd = new SqlCommand("UPDATE [User] SET LastLogin = @Now WHERE UserId = @UserId", conn);
+                        //updateCmd.Parameters.AddWithValue("@Now", DateTime.Now);
+                        //updateCmd.Parameters.AddWithValue("@UserId", userId);
+                        //updateCmd.ExecuteNonQuery();
                     }
                     else
                     {
@@ -67,13 +67,13 @@ namespace SecondProject.Login
                         reader.Close(); 
 
                         SqlCommand insertCmd = new SqlCommand(@"
-                    INSERT INTO [User] (FullName, Email, Role, LastLogin)
-                    VALUES (@FullName, @Email, 'User', @Now);
+                    INSERT INTO [User] (FullName, Email, Role)
+                    VALUES (@FullName, @Email, 'User');
                     SELECT SCOPE_IDENTITY();", conn);
 
                         insertCmd.Parameters.AddWithValue("@FullName", name);
                         insertCmd.Parameters.AddWithValue("@Email", email);
-                        insertCmd.Parameters.AddWithValue("@Now", DateTime.Now);
+                        //insertCmd.Parameters.AddWithValue("@Now", DateTime.Now);
 
                         int newUserId = Convert.ToInt32(insertCmd.ExecuteScalar());
 
@@ -153,13 +153,13 @@ namespace SecondProject.Login
                 reader.Close();
 
 
-                SqlCommand updateCmd = new SqlCommand("UPDATE [User] SET LastLogin = @Now WHERE UserId = @UserId", conn);
+                //SqlCommand updateCmd = new SqlCommand("UPDATE [User] SET LastLogin = @Now WHERE UserId = @UserId", conn);
 
-                updateCmd.Parameters.AddWithValue("@Now", DateTime.Now);
+                //updateCmd.Parameters.AddWithValue("@Now", DateTime.Now);
 
-                updateCmd.Parameters.AddWithValue("@UserId", userId);
+                //updateCmd.Parameters.AddWithValue("@UserId", userId);
 
-                updateCmd.ExecuteNonQuery();
+                //updateCmd.ExecuteNonQuery();
 
 
                 conn.Close();

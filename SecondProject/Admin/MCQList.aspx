@@ -1,0 +1,168 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/Admin.Master" AutoEventWireup="true" CodeBehind="MCQList.aspx.cs" Inherits="SecondProject.Admin.MCQList" %>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+
+    
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<style>
+    #MCQList th,
+    #MCQList td,
+    .table th,
+    .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+</style>
+
+        <form id="form1" runat="server">
+        <div class="container mt-5">
+            <!-- Header and Breadcrumb -->
+            <div class="d-md-flex d-block align-items-center justify-content-between page-breadcrumb mb-3">
+                <div class="my-auto mb-2">
+                    <h3 class="mb-1">MCQ List</h3>
+                    <nav>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="AdminDashboard.aspx"><i class="bi bi-house"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">Admin</li>
+                            <li class="breadcrumb-item active" aria-current="page">MCQ List</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Card and Table -->
+            <div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+                    <h5 class="mb-0">MCQ List</h5>
+                </div>
+                <div class="card-body">
+                    <asp:GridView ID="GridView1" runat="server" CssClass="table table-bordered mt-4" AutoGenerateColumns="False" OnRowCommand="GridView1_RowCommand">
+                        <Columns>
+                            <asp:TemplateField HeaderText="MCQ ID">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("McqId") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Master Course">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label10" runat="server" Text='<%# Eval("MasterCourse") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Sub Course">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label5" runat="server" Text='<%# Eval("SubCourse") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Topic">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("Topic") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Question">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label3" runat="server" Text='<%# Eval("Question") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Option A">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label4" runat="server" Text='<%# Eval("OptionA") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Option B">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label6" runat="server" Text='<%# Eval("OptionB") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Option C">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label7" runat="server" Text='<%# Eval("OptionC") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Option D">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label8" runat="server" Text='<%# Eval("OptionD") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Answer">
+                                <ItemTemplate>
+                                    <asp:Label ID="Label9" runat="server" Text='<%# Eval("Answer") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Action">
+                                <ItemTemplate>
+                                    <asp:LinkButton ID="btnEdit" runat="server" CommandName="EditMcq" CommandArgument='<%# Eval("McqId") %>' CssClass="me-2" ToolTip="Edit">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </asp:LinkButton>
+                                    <asp:LinkButton ID="btnDelete" runat="server" CommandName="DeleteMcq" CommandArgument='<%# Eval("McqId") %>' ToolTip="Delete">
+                                        <i class="bi bi-trash3 text-danger"></i>
+                                    </asp:LinkButton>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </div>
+        </div>
+        <div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+          <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+          <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+              <ContentTemplate>
+                  <asp:HiddenField ID="HiddenField1" runat="server"/>
+                    <div class="mb-3">
+                    <label for="txtMasterCourse" class="form-label">Master Course</label>
+                    <asp:TextBox ID="txtMasterCourse" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>   
+                </div>
+                <div class="mb-3">
+                    <label for="txtSubCourse" class="form-label">Sub Course</label>
+                    <asp:TextBox ID="txtSubCourse" runat="server" ReadOnly="true" CssClass="form-control"></asp:TextBox>   
+                </div>
+                  <div class="mb-3">
+                    <label for="txtTopic" class="form-label">Topic</label>
+                    <asp:TextBox ID="txtTopic" runat="server" CssClass="form-control"  ReadOnly="true"></asp:TextBox>
+                  </div>
+                  <div class="mb-3">
+                    <label for="txtQuestion" class="form-label">Question</label>
+                    <asp:TextBox ID="txtQuestion" runat="server" CssClass="form-control" placeholder="Enter Question"></asp:TextBox>
+                  </div>
+                  <div class="mb-3">
+                  <asp:TextBox ID="txtOptionA" runat="server" CssClass="form-control" placeholder="Enter OptionA"></asp:TextBox>
+                </div>
+                    <div class="mb-3">
+                  <asp:TextBox ID="txtOptionB" runat="server" CssClass="form-control" placeholder="Enter OptionB"></asp:TextBox>
+                </div>
+                    <div class="mb-3">
+                      <asp:TextBox ID="txtOptionC" runat="server" CssClass="form-control" placeholder="Enter OptionC"></asp:TextBox>
+                    </div>
+                    <div class="mb-3">
+                      <asp:TextBox ID="txtOptionD" runat="server" CssClass="form-control" placeholder="Enter OptionD"></asp:TextBox>
+                    </div>
+                <div class="mb-3">
+                  <label for="txtAns" class="form-label">Answer</label>
+                  <asp:TextBox ID="txtAns" runat="server" CssClass="form-control" placeholder="Enter Answer"></asp:TextBox>
+                </div>
+                <asp:Button ID="btnUpdate" runat="server" Text="Update" CssClass="btn btn-primary" OnClick="btnUpdate_Click"/>
+                <asp:Button ID="btnBack" runat="server" Text="Back" CssClass="btn btn-secondary" OnClick="btnBack_Click"/>
+                
+              </ContentTemplate>
+              <Triggers>
+                <asp:PostBackTrigger ControlID="btnUpdate" />
+            </Triggers>
+          </asp:UpdatePanel>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+    </form>
+</asp:Content>
