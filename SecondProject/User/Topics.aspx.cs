@@ -47,12 +47,12 @@ namespace SecondProject.User
                 {
                     int subCourseId = topics[0].SubCourseId;
 
-                    // Set CommandArgument manually
                     btnCertificate.CommandArgument = subCourseId.ToString();
                     btnAssignments.CommandArgument = subCourseId.ToString();
                     btnMCQ.CommandArgument = subCourseId.ToString();
                     //Button1.CommandArgument = subCourseId.ToString(); // For second copy
                     //Button2.CommandArgument = subCourseId.ToString();
+                    MarkVideoWatchedIfNeeded();
                 }
             }
         }
@@ -331,8 +331,6 @@ namespace SecondProject.User
             }
         }
 
-
-
         protected void btnNext_Click(object sender, EventArgs e)
         {
             if (ActiveViewIndex < mvTopics.Views.Count - 1)
@@ -342,7 +340,6 @@ namespace SecondProject.User
             BindPlaylist();
             UpdateNavigationButtons();
         }
-
 
         private void UpdateCertificateButton()
         {
@@ -358,6 +355,20 @@ namespace SecondProject.User
             UpdateNavigationButtons();
         }
 
+        private void MarkVideoWatchedIfNeeded()
+        {
+            int userId = GetLoggedInUserId();
+            int subCourseId = Convert.ToInt32(Request.QueryString["scid"]);
+            string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                SqlCommand cmd = new SqlCommand($"UPDATE User_SubCourseProgress SET VideosWatched = 1 WHERE UserId = '{userId}' AND SubCourseId = '{subCourseId}' AND VideosWatched <> 1", conn);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
 
         protected void PlayVideo_Command(object sender, CommandEventArgs e)
         {
@@ -370,6 +381,7 @@ namespace SecondProject.User
             BindTopics();
             BindPlaylist();
             UpdateNavigationButtons();
+            MarkVideoWatchedIfNeeded();
         }
 
 
