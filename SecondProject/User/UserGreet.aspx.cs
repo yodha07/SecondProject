@@ -27,7 +27,7 @@ namespace SecondProject.User
             string cn = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
             conn = new SqlConnection(cn);
             conn.Open();
-            Session["us"] = TextBox2.Text;
+            UserName();
             LoadChatMessages();
 
         }
@@ -39,8 +39,13 @@ namespace SecondProject.User
 
         protected void LoadChatMessages()
         {
-            string user = Session["us"].ToString();
-            string query = $"SELECT Send,Reply,SendTime, ReplyTime FROM Chats Where UserName='{user}'";
+            string query2 = $"select FullName from [User] where Userid = {Session["UserId"].ToString()}";
+            SqlCommand cmd2 = new SqlCommand(query2, conn);
+            SqlDataReader rdr2 = cmd2.ExecuteReader();
+            rdr2.Read();
+
+            string user = rdr2["FullName"].ToString();
+            string query = $"SELECT Send,Reply,SendTime, ReplyTime FROM Chats Where FullName='{user}'";
 
             SqlCommand cmd = new SqlCommand(query, conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -51,12 +56,26 @@ namespace SecondProject.User
             rptChatMessagess.DataBind();
 
         }
+        protected void UserName() 
+        {
+            string query2 = $"select FullName from [User] where Userid = {Session["UserId"].ToString()}";
+            SqlCommand cmd2 = new SqlCommand(query2, conn);
+            SqlDataReader rdr2 = cmd2.ExecuteReader();
+            rdr2.Read();
+
+            Label1.Text = rdr2["FullName"].ToString();
+        }
 
 
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string name = Session["us"].ToString();
+            string query2 = $"select FullName from [User] where Userid = {Session["UserId"].ToString()}";
+            SqlCommand cmd2 = new SqlCommand(query2, conn);
+            SqlDataReader rdr2 = cmd2.ExecuteReader();
+            rdr2.Read();
+              
+            string name = rdr2["FullName"].ToString();
             string send = TextBox1.Text;
             DateTime now = DateTime.Now;
 

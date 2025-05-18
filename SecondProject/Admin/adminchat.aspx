@@ -123,21 +123,17 @@
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <asp:Repeater ID="rptUsers" runat="server" DataSourceID="SqlDataSource2" OnItemCommand="rptUsers_ItemCommand">
+            <asp:Repeater ID="rptUsers" runat="server" DataSourceID="SqlDataSource1" OnItemCommand="rptUsers_ItemCommand">
                 <ItemTemplate>
                     <asp:LinkButton runat="server"
                                     CommandName="SelectUser"
-                                    CommandArgument='<%# Eval("UserName") %>'
+                                    CommandArgument='<%# Eval("FullName") %>'
                                     CssClass="user">
-                        <%# Eval("UserName") %>
+                        <%# Eval("FullName") %>
                     </asp:LinkButton>
                 </ItemTemplate>
             </asp:Repeater>
-            <asp:SqlDataSource ID="SqlDataSource2" runat="server"
-                ConnectionString="<%$ ConnectionStrings:aprilbatchConnectionString2 %>"
-                ProviderName="<%$ ConnectionStrings:aprilbatchConnectionString2.ProviderName %>"
-                SelectCommand="SELECT [UserName] FROM [Users]">
-            </asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ELearning_ProjectConnectionString %>" ProviderName="<%$ ConnectionStrings:ELearning_ProjectConnectionString.ProviderName %>" SelectCommand="SELECT [FullName] FROM [User]"></asp:SqlDataSource>
         </div>
 
         <!-- Chat Area -->

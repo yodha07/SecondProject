@@ -38,8 +38,7 @@ namespace SecondProject.Login
             string hashedPassword = password;
 
             
-            string query = "INSERT INTO [User] (FullName, Email, PasswordHash, IsActive, RegisteredAt, Role) " +
-                           "VALUES (@FullName, @Email, @PasswordHash, 1, @RegisteredAt, 'User')";
+            string query = "INSERT INTO [User] (FullName, Email, PasswordHash, IsActive, RegisteredAt, Role) VALUES (@FullName, @Email, @PasswordHash, 1, @RegisteredAt, 'User')";
 
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@FullName", name); 

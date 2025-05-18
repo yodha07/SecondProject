@@ -64,11 +64,11 @@
     </nav>
 
     <!-- PAGE CONTENT -->
-    <form id="form1" runat="server">
+<%--    <form id="form1" runat="server">--%>
         <div class="container-fluid mt-3">
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
-    </form>
+<%--</form>--%>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

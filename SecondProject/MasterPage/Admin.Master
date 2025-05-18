@@ -21,7 +21,7 @@
 </head>
 <body>
     
-    <form id="form1" runat="server">
+<%--    <form id="form1" runat="server">--%>
         <!-- NAVIGATION BAR (Fixed-Top, Responsive) -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <a class="navbar-brand" href="#">assskEdu</a>
@@ -116,7 +116,7 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
     
-        </form>
+        <%--</form>--%>
     <!-- Bootstrap JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>

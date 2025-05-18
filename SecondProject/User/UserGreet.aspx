@@ -139,8 +139,8 @@
                 <div class="chat-header">
                     Chat Support
                 </div>
-
-                <asp:TextBox ID="TextBox2" runat="server" Text="Jane Smith" CssClass="form-control" />
+                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                <%--<asp:TextBox ID="TextBox2" runat="server" Text="Jane Smith" CssClass="form-control" />--%>
                 <div class="messages" id="chatMessages">
                     
                     <asp:Repeater ID="rptChatMessagess" runat="server">
