@@ -61,8 +61,62 @@ namespace SecondProject.User
         protected void Assignments_Click(object sender, CommandEventArgs e)
         {
             int subCourseId = Convert.ToInt32(e.CommandArgument);
-            Response.Redirect($"Assignments.aspx?scid={subCourseId}");
+
+
+            int activeIndex = mvTopics.ActiveViewIndex;
+
+            int topicId = 0;
+            string filePath = "";
+
+            string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+            SqlConnection conn = new SqlConnection(connStr);
+
+            {
+                conn.Open();
+
+                SqlCommand cmd1 = new SqlCommand("SELECT TopicId FROM Topic WHERE SubCourseId = @SubCourseId ORDER BY TopicId OFFSET @Offset ROWS FETCH NEXT 1 ROWS ONLY", conn);
+                cmd1.Parameters.AddWithValue("@SubCourseId", subCourseId);
+                cmd1.Parameters.AddWithValue("@Offset", activeIndex);
+
+                object result = cmd1.ExecuteScalar();
+                if (result != null)
+                {
+                    topicId = Convert.ToInt32(result);
+
+                    SqlCommand cmd2 = new SqlCommand("SELECT FilePath FROM Assignment WHERE TopicId = @TopicId", conn);
+                    cmd2.Parameters.AddWithValue("@TopicId", topicId);
+
+                    SqlDataReader reader = cmd2.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        filePath = reader["FilePath"].ToString();
+
+                        string physicalPath = Server.MapPath(filePath);
+                        if (File.Exists(physicalPath))
+                        {
+                            Response.Clear();
+                            Response.ContentType = "application/pdf";
+                            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(physicalPath));
+                            Response.TransmitFile(physicalPath);
+                            Response.End();
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('File not found on server.');</script>");
+                        }
+                    }
+                    else
+                    {
+                        Response.Write("<script>alert('No assignment found for this topic.');</script>");
+                    }
+                }
+                else
+                {
+                    Response.Write("<script>alert('Topic not found.');</script>");
+                }
+            }
         }
+
 
         protected void Mcq_Click(object sender, CommandEventArgs e)
         {

@@ -18,8 +18,8 @@
             <div class="flex-1 max-w-3xl p-6 bg-white shadow-lg rounded-lg px-15">
                 <asp:MultiView ID="mvTopics" runat="server"></asp:MultiView>
                 <div class="mt-4 flex justify-between">
-                    <asp:Button ID="btnPrev" runat="server" Text="Previous" OnClick="btnPrev_Click" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300" />
-                    <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300" />
+                    <asp:Button ID="btnPrev" runat="server" Text="Previous" OnClick="btnPrev_Click" class="px-4 py-2 my-10 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300" />
+                    <asp:Button ID="btnNext" runat="server" Text="Next" OnClick="btnNext_Click" class="px-4 py-2 my-10 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300" />
                 </div>
 
 
