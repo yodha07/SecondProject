@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/User.Master" AutoEventWireup="true" CodeBehind="UserDashBoard.aspx.cs" Inherits="SecondProject.User.UserDashBoard" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 <style>
     body {

@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/User.Master" AutoEventWireup="true" CodeBehind="course_Membership.aspx.cs" Inherits="SecondProject.User.course_Membership" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+     <script src="https://cdn.tailwindcss.com"></script>
        <div style="height: 80vh; overflow-y: auto; padding: 20px;">
     <asp:DataList ID="DataList1" runat="server" 
                   RepeatColumns="4" RepeatDirection="Horizontal"
