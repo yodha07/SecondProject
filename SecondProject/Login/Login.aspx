@@ -42,6 +42,10 @@
 
         <div>
             <asp:Button runat="server" Text="Login With Google" OnClick="LoginBtn" CssClass="w-full bg-white border border-gray-300 hover:bg-gray-100 text-gray-800 font-semibold py-2 rounded-lg transition duration-200" />
+            <br />
+            <asp:HyperLink ID="hlRegister0" runat="server" NavigateUrl="~/Login/reason_form.aspx" CssClass="text-sm text-blue-500 hover:underline">
+                Grivience
+            </asp:HyperLink>
         </div>
     </form>
 

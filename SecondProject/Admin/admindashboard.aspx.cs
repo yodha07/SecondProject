@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.DataVisualization.Charting;
+using System.Net.Mail;
+using System.Net;
 
 
 namespace SecondProject.Admin
@@ -37,7 +39,7 @@ namespace SecondProject.Admin
                 piechart();
                 dropdown();
                 sales_dropdown();
-
+                grivience();
 
             }
 
@@ -137,7 +139,7 @@ namespace SecondProject.Admin
             GridView1.DataSource = dt;
             GridView1.DataBind();
             //chart();
-            //piechart();
+            piechart();
 
         }
 
@@ -167,6 +169,76 @@ namespace SecondProject.Admin
             Chart1.DataSource = reader;
             Chart1.DataBind();
             reader.Read();
+            piechart();
         }
+        protected void grivience()
+        {
+            string query = $"exec reason_grid";
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            GridView2.DataSource = dt;
+            GridView2.DataBind();
+        }
+
+        protected void GridView2_OnRowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "yes")
+            {
+                int id = int.Parse(e.CommandArgument.ToString());
+                DateTime lastlogin = DateTime.Now;
+                string query = $"exec reasons_yes '{lastlogin:yyyy-MM-dd HH:mm:ss}', '{id}'";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                string query2 = $"select email from [user] where userid = '{id}'";
+                SqlCommand cmd2 = new SqlCommand(query2, conn);
+                SqlDataReader rdr2 = cmd2.ExecuteReader();
+                string email = rdr2["email"].ToString();
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("suyashchavan.sit.comp@gmail.com");
+                mail.To.Add(email);
+                mail.Subject = "You can now login";
+                mail.Body = " You can can now free to login ASSSK.Edu Team";
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                smtp.Credentials = new NetworkCredential("suyashchavan.sit.comp@gmail.com", "mdvriiwsxfoeihyz");
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                Response.Write("<script>alert('mail sent')</script>");
+                Response.Redirect("admindashboard.aspx");
+
+
+            }
+            else if (e.CommandName == "no")
+            {
+                int id = int.Parse(e.CommandArgument.ToString());
+                string query = $"exec reasons_no '{id}'";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.ExecuteNonQuery();
+                string query2 = $"select email from [user] where userid = '{id}'";
+                SqlCommand cmd2 = new SqlCommand(query2, conn);
+                SqlDataReader rdr2 = cmd2.ExecuteReader();
+                string email = rdr2["email"].ToString();
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress("suyashchavan.sit.comp@gmail.com");
+                mail.To.Add(email);
+                mail.Subject = "You can now login";
+                mail.Body = " You can can now free to login ASSSK.Edu Team";
+
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                smtp.Credentials = new NetworkCredential("suyashchavan.sit.comp@gmail.com", "mdvriiwsxfoeihyz");
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                Response.Redirect("admindashboard.aspx");
+
+            }
+        }
+
     }
 }

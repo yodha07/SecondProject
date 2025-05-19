@@ -22,6 +22,7 @@ namespace SecondProject.User
 
             SqlConnection conn;
             int cartcount = 0;
+
        
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,6 +30,15 @@ namespace SecondProject.User
             conn.Open();
             //filldatalist();
             if (!IsPostBack)
+
+            protected void Page_Load(object sender, EventArgs e)
+            {
+                string cs = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+                conn = new SqlConnection(cs);
+                conn.Open();
+                //filldatalist();
+                if (!IsPostBack)
+
                 {
                     filldatalist();
                     checkCart();

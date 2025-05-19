@@ -249,12 +249,14 @@
     <Content Include="assets\js\isotope.min.js" />
     <Content Include="assets\js\owl-carousel.js" />
     <Content Include="Login\Login.aspx" />
+    <Content Include="Login\reason_form.aspx" />
     <Content Include="Login\Register.aspx" />
     <Content Include="sec\sec.js" />
     <Content Include="User\Cart.aspx" />
     <Content Include="User\course_Membership.aspx" />
     <Content Include="User\emptyCart.aspx" />
     <Content Include="User\generatepdf.aspx" />
+    <Content Include="User\logout.aspx" />
     <Content Include="User\MCQs.aspx" />
     <Content Include="User\MyCourses.aspx" />
     <Content Include="User\Topics.aspx" />
@@ -389,6 +391,13 @@
     <Compile Include="Login\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Login\reason_form.aspx.cs">
+      <DependentUpon>reason_form.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login\reason_form.aspx.designer.cs">
+      <DependentUpon>reason_form.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -438,6 +447,13 @@
     </Compile>
     <Compile Include="User\generatepdf.aspx.designer.cs">
       <DependentUpon>generatepdf.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\MCQs.aspx.cs">
       <DependentUpon>MCQs.aspx</DependentUpon>

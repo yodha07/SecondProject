@@ -53,8 +53,9 @@
                 <!-- Links -->
                 <div class="hidden md:flex space-x-6 items-center">
                     <a href="UserDashBoard.aspx" class="hover:text-blue-400 transition">Dashboard</a>
-                    <a href="WebForm1.aspx" class="hover:text-blue-400 transition">Buy Courses</a>
-                    <a href="course_Membership.aspx"" class="hover:text-blue-400 transition">Membership</a>
+                    <a href="#" class="hover:text-blue-400 transition">Buy Courses</a>
+                    <a href="course_Membership.aspx" class="hover:text-blue-400 transition">Membership</a>
+
                     <a href="Cart.aspx" class="hover:text-blue-400 transition">My Cart</a>
                     <a href="MyCourses.aspx" class="hover:text-blue-400 transition">My Courses</a>
                     <a href="logout.aspx" class="text-red-400 hover:text-red-600 font-semibold">Logout</a>
@@ -65,7 +66,8 @@
         <!-- Mobile menu -->
         <div class="md:hidden hidden px-4 pt-2 pb-3 space-y-1" id="mobile-menu">
             <a href="UserDashBoard.aspx" class="block text-white hover:text-blue-400">Dashboard</a>
-            <a href="WebForm1.aspx" class="block text-white hover:text-blue-400">Buy Courses</a>
+            <a href="#" class="block text-white hover:text-blue-400">Buy Courses</a>
+
             <a href="course_Membership.aspx" class="block text-white hover:text-blue-400">Membership</a>
             <a href="Cart.aspx" class="block text-white hover:text-blue-400">My Cart</a>
             <a href="MyCourses.aspx" class="block text-white hover:text-blue-400">My Courses</a>

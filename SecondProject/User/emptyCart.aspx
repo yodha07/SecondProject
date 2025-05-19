@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-        
+         <script src="https://cdn.tailwindcss.com"></script>
         <style>
         .empty-cart {
             min-height: 60vh;
