@@ -171,6 +171,35 @@ namespace SecondProject.User
             }
         }
 
+        protected void month_duration()
+        {
+            int user = GetLoggedInUserId();
+            int subcourseid = Convert.ToInt32(Request.QueryString["scid"]);
+            string query = $"exec month_limit '{user}' , '{subcourseid}'";
+            string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+            SqlConnection conn = new SqlConnection(connStr);
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlDataReader rdr = cmd.ExecuteReader();
+            if (rdr.HasRows)
+            {
+                rdr.Read();
+                DateTime purchase_date = Convert.ToDateTime(rdr["PurchaseDate"]);
+                TimeSpan month = DateTime.Now - purchase_date;
+                if (month.TotalDays <= 30)
+                {
+                    int current_days = (int)month.TotalDays;
+                    int daysRemaining = 30 - current_days;
+                    Label2.Text = $"You Have {daysRemaining} Days Reamining";
+                }
+                else
+                {
+
+                    Label2.Text = "Your access to this subcourse has expired.";
+                }
+            }
+        }
+
         private int GetLoggedInUserId()
         {
             string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
