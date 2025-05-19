@@ -69,13 +69,13 @@ namespace SecondProject.Admin
         protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// panel1 control.
+        /// UpdatePanel_ColumnChart control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel panel1;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_ColumnChart;
 
         /// <summary>
         /// DropDownList2 control.
@@ -94,6 +94,7 @@ namespace SecondProject.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
+
         /// <summary>
         /// Chart2 control.
         /// </summary>
@@ -120,5 +121,14 @@ namespace SecondProject.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridView1;
+
+        /// <summary>
+        /// GridView2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView2;
     }
 }

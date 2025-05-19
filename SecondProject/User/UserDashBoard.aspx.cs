@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -24,9 +27,84 @@ namespace SecondProject.User
                 Lastlogin();
                                                                             
             }
+            string email = Session["Email"]?.ToString();
 
+            if (string.IsNullOrEmpty(email))
+            {
+                Response.Redirect("~/Login/Login.aspx");
+            }
+            else
+            {
+                //lblGreeting.Text = "Hello, " + " (" + email + ")";
+            }
+
+
+            string cn = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+            conn = new SqlConnection(cn);
+            conn.Open();
+            UserName();
+            LoadChatMessages();
 
         }
+
+        protected void rptChatMessagess_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+
+        }
+
+        protected void LoadChatMessages()
+        {
+            string query2 = $"select FullName from [User] where Userid = {Session["UserId"].ToString()}";
+            SqlCommand cmd2 = new SqlCommand(query2, conn);
+            SqlDataReader rdr2 = cmd2.ExecuteReader();
+            rdr2.Read();
+
+            string user = rdr2["FullName"].ToString();
+            string query = $"SELECT Send,Reply,SendTime, ReplyTime FROM Chats Where FullName='{user}'";
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            rptChatMessagess.DataSource = dt;
+            rptChatMessagess.DataBind();
+
+        }
+        protected void UserName()
+        {
+            string query2 = $"select FullName from [User] where Userid = {Session["UserId"].ToString()}";
+            SqlCommand cmd2 = new SqlCommand(query2, conn);
+            SqlDataReader rdr2 = cmd2.ExecuteReader();
+            rdr2.Read();
+
+            Label5.Text = rdr2["FullName"].ToString();
+        }
+
+
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string query2 = $"select FullName from [User] where Userid = {Session["UserId"].ToString()}";
+            SqlCommand cmd2 = new SqlCommand(query2, conn);
+            SqlDataReader rdr2 = cmd2.ExecuteReader();
+            rdr2.Read();
+
+            string name = rdr2["FullName"].ToString();
+            string send = TextBox1.Text;
+            DateTime now = DateTime.Now;
+
+            string query = $"exec InsertChatMessage '{name}','{send}','{now:yyyy-MM-dd HH:mm:ss}'";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.ExecuteNonQuery();
+
+
+            TextBox1.Text = "";
+            LoadChatMessages();
+
+        }
+
+
         protected void course()
         {
             int user = int.Parse(Session["UserId"].ToString());
@@ -164,12 +242,29 @@ namespace SecondProject.User
                         user_subcourse_fetch();
                     }
 
+
                 }
                 else
                 {
+
                     //Response.Write("<script>alert('You have not Login from past 1 Week\nPlease contact Admin');</script>");
-                    string script = "alert('You have not Login from past 1 Week\\nPlease contact Admin'); window.location='~/Login/Login.aspx';";
-                    ClientScript.RegisterStartupScript(this.GetType(), "alertAndRedirect", script, true);
+                    string query2 = $"select email from [user] where userid = '{user}'";
+                    SqlCommand cmd2 = new SqlCommand(query2, conn);
+                    SqlDataReader rdr2 = cmd2.ExecuteReader();
+                    rdr2.Read();
+                    string email = rdr2["email"].ToString();
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("suyashchavan.sit.comp@gmail.com");
+                    mail.To.Add(email);
+                    mail.Subject = "We Miss You! Haven't Seen You in 7 Days";
+                    mail.Body = "Hello,\n\nWe noticed that you haven't logged in for the past 7 days. Please fill grivience form ASSSK.Edu Team";
+
+                    SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                    smtp.Credentials = new NetworkCredential("suyashchavan.sit.comp@gmail.com", "mdvriiwsxfoeihyz");
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                    Response.Write("<script>alert('mail sent')</script>");
                     Session.Clear();
                     Session.Abandon();
                     //Response.Redirect("~/Login/Login.aspx");

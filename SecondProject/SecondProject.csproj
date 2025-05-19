@@ -249,6 +249,7 @@
     <Content Include="assets\js\isotope.min.js" />
     <Content Include="assets\js\owl-carousel.js" />
     <Content Include="Login\Login.aspx" />
+    <Content Include="Login\reason_form.aspx" />
     <Content Include="Login\Register.aspx" />
     <Content Include="sec\sec.js" />
     <Content Include="User\Cart.aspx" />
@@ -389,6 +390,13 @@
     </Compile>
     <Compile Include="Login\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login\reason_form.aspx.cs">
+      <DependentUpon>reason_form.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login\reason_form.aspx.designer.cs">
+      <DependentUpon>reason_form.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>

@@ -70,72 +70,77 @@
                 </div>
             </div>
 
+              <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+<asp:UpdatePanel ID="UpdatePanel_ColumnChart" runat="server">
+    <ContentTemplate>
+        <div class="d-flex justify-content-center align-items-start gap-4 flex-wrap">
+
             <!-- Column Chart -->
-<%--                  <asp:ScriptManager ID="ScriptManager2" runat="server"></asp:ScriptManager>--%>
-                  <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-                  <asp:UpdatePanel runat="server" ID ="panel1">
-                      <ContentTemplate>
-       <div class="chart-container bg-white p-4 rounded shadow-sm border mb-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="text-primary fw-bold mb-0">
-            <i class="bi bi-bar-chart-line-fill me-2"></i>Monthly Sales Chart
-        </h5>
+            <div style="width: 600px; padding: 10px; background-color: #fff; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+                <h5 class="text-center text-primary fw-bold mb-3">📊 Monthly Sales Chart</h5>
 
-        <div class="w-25">
-            <asp:DropDownList 
-                ID="DropDownList2" 
-                runat="server" 
-                DataTextField="year" 
-                DataValueField="year" 
-                OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged" 
-                AutoPostBack="True"
-                CssClass="form-select border-primary shadow-sm">
-            </asp:DropDownList>
-        </div>
-    </div>
+                <asp:DropDownList 
+                    ID="DropDownList2" 
+                    runat="server" 
+                    DataTextField="year" 
+                    DataValueField="year" 
+                    OnSelectedIndexChanged="DropDownList2_SelectedIndexChanged" 
+                    AutoPostBack="True"
+                    CssClass="form-select w-100 mb-3 border-primary shadow-sm">
+                </asp:DropDownList>
 
-    <asp:Chart 
-        ID="Chart1" 
-        runat="server" 
-        Width="1000px" 
-        Height="400px" 
-        CssClass="bg-light p-2 rounded shadow-sm">
-        <series>
-            <asp:Series 
-                Name="Sales" 
-                ChartType="Column" 
-                XValueMember="month" 
-                YValueMembers="count" 
-                ToolTip="#VALX: $#VALY" />
-        </series>
-        <chartareas>
-            <asp:ChartArea Name="ChartArea1">
-        <AxisX Title="Month" TitleFont="Arial, 10pt, style=Bold" />
-        <AxisY Title="Sales Amount" TitleFont="Arial, 10pt, style=Bold" LabelStyle-ForeColor="DarkGreen" />
-    </asp:ChartArea>
-        </chartareas>
-    </asp:Chart>
-</div>
-
-                      </ContentTemplate>
-                  </asp:UpdatePanel>
-           
-
-            <!-- Pie Chart -->
-            <div class="chart-container">
-                <h5 class="mb-3">🧮 User Status Pie Chart</h5>
-                <asp:Chart ID="Chart2" runat="server" Width="1000px" Height="400px">
-                    <series>
-                        <asp:Series Name="user" ChartType="Pie" XValueMember="Status" YValueMembers="UserCount" 
-           
-            ToolTip="#VALX: #VALY user (#PERCENT{P1})"/>
-                    </series>
-                    <chartareas>
-                        <asp:ChartArea Name="ChartArea1" />
-                    </chartareas>
+                <asp:Chart 
+                    ID="Chart1" 
+                    runat="server" 
+                    Width="600px" 
+                    Height="400px" 
+                    CssClass="bg-light p-2 rounded shadow-sm">
+                    <Series>
+                        <asp:Series 
+                            Name="Sales" 
+                            ChartType="Column" 
+                            XValueMember="month" 
+                            YValueMembers="count" 
+                            ToolTip="#VALX: $#VALY" />
+                    </Series>
+                    <ChartAreas>
+                        <asp:ChartArea Name="ChartArea1">
+                            <AxisX Title="Month" TitleFont="Arial, 10pt, style=Bold" />
+                            <AxisY Title="Sales Amount" TitleFont="Arial, 10pt, style=Bold" LabelStyle-ForeColor="DarkGreen" />
+                        </asp:ChartArea>
+                    </ChartAreas>
                 </asp:Chart>
             </div>
-                  
+
+            <!-- Pie Chart -->
+            <div style="width: 600px; padding: 10px; margin:8px; background-color: #fff; border-radius: 12px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+                <h5 class="text-center text-primary fw-bold mb-3">🧮 User Status Pie Chart</h5>
+
+                <asp:Chart 
+                    ID="Chart2" 
+                    runat="server" 
+                    Width="600px" 
+                    Height="400px" 
+                    CssClass="bg-light p-2 rounded shadow-sm">
+                    <Series>
+                        <asp:Series 
+                            Name="user" 
+                            ChartType="Pie" 
+                            XValueMember="Status" 
+                            YValueMembers="UserCount" 
+                            ToolTip="#VALX: #VALY user (#PERCENT{P1})" />
+                    </Series>
+                    <ChartAreas>
+                        <asp:ChartArea Name="ChartArea1" />
+                    </ChartAreas>
+                </asp:Chart>
+            </div>
+
+        </div>
+    </ContentTemplate>
+</asp:UpdatePanel>
+        
                   <asp:UpdatePanel runat ="server" >
                       <ContentTemplate>
                            <div class="mb-4">
@@ -151,6 +156,25 @@
             <!-- Dropdown & Grid -->
            
         </div>
+            <div class="chart-container">
+    <h5 class="mb-3">📨 Grievance Requests</h5>
+    <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered table-hover" OnRowCommand="GridView2_OnRowCommand">
+        <Columns>
+            <asp:BoundField DataField="userid" HeaderText="User ID" />
+            <asp:BoundField DataField="FullName" HeaderText="Name" />
+            <asp:BoundField DataField="Email" HeaderText="Email" />
+            <asp:BoundField DataField="Reason" HeaderText="Reason" />
+            <asp:TemplateField HeaderText="Actions">
+                <ItemTemplate>
+                    <div class="d-flex gap-2">
+                        <asp:Button ID="Button1" runat="server" Text="Yes" CssClass="btn btn-success btn-sm" CommandName="yes" CommandArgument='<%# Eval("userid") %>' />
+                        <asp:Button ID="Button2" runat="server" Text="No" CssClass="btn btn-danger btn-sm" CommandName="no" CommandArgument='<%# Eval("userid") %>' />
+                    </div>
+                </ItemTemplate>
+            </asp:TemplateField>
+        </Columns>
+    </asp:GridView>
+</div>
 
     </form>
 </asp:Content>
