@@ -27,24 +27,22 @@ namespace SecondProject.User
         protected void Page_Load(object sender, EventArgs e)
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
+            string cs = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
             conn.Open();
             //filldatalist();
             if (!IsPostBack)
 
-            protected void Page_Load(object sender, EventArgs e)
             {
-                string cs = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
-                conn = new SqlConnection(cs);
-                conn.Open();
-                //filldatalist();
-                if (!IsPostBack)
+                filldatalist();
+                checkCart();
+                Label2.Text = cartcount.ToString() + " Item";
+                lblTotalItems.Text = cartcount.ToString();
+            }
 
-                {
-                    filldatalist();
-                    checkCart();
-                    Label2.Text = cartcount.ToString() + " Item";
-                    lblTotalItems.Text = cartcount.ToString();
-                }
+
+
+            
+            
             }
             public void filldatalist()
             {

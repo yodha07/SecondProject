@@ -169,7 +169,7 @@ namespace SecondProject.Login
 
                 {
 
-                    Response.Redirect("~/Admin/AdminGreet.aspx");
+                    Response.Redirect("~/Admin/AdminDashBoard.aspx");
 
                 }
 

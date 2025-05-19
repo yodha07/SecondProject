@@ -43,6 +43,7 @@ namespace SecondProject.Login
             cmd.ExecuteNonQuery();
             //Response.Write("<script>alert('add')</script>");
             mail();
+            Response.Redirect("Login/Login.aspx");
         }
         protected void mail()
         {

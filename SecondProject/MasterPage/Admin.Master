@@ -22,6 +22,10 @@
 /*        body {
             padding-top: 70px;
         }*/
+.container-fluid{
+    padding-top:30px;
+}
+
     </style>
 
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
@@ -94,6 +98,7 @@
 
                     <a href="adminchat.aspx" class="text-light hover:text-info">Chat</a>
                     <a href="logout.aspx" class="text-danger font-weight-bold ml-3">Logout</a>
+                    
                 </div>
             </div>
         </div>
@@ -146,6 +151,7 @@
             <a href="#courses" class="d-block text-white py-1">All Courses List</a>
             <a href="#chat" class="d-block text-white py-1">Chat</a>
             <a href="logout.aspx" class="d-block text-danger font-weight-bold mt-2">Logout</a>
+            <%--<input type="button" text="Logout" class="d-block text-danger font-weight-bold mt-2 " onclick="logout()"/> --%>
         </div>
     </nav>
 

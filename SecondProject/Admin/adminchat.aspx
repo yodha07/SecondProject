@@ -14,6 +14,7 @@
             display: inline-flex;
             height: 92vh;
             max-width:2000px;
+            padding-top: 80px;
         }
 
         .sidebar {
@@ -22,6 +23,7 @@
             color: white;
             overflow-y: auto;
             padding: 20px 0;
+            height: 92vh;
         }
 
         .user {

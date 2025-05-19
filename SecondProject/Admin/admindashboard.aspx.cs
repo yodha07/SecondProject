@@ -194,10 +194,11 @@ namespace SecondProject.Admin
                 string query = $"exec reasons_yes '{lastlogin:yyyy-MM-dd HH:mm:ss}', '{id}'";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.ExecuteNonQuery();
-                string query2 = $"select email from [user] where userid = '{id}'";
+                string query2 = $"select Email from [user] where userid = '{id}'";
                 SqlCommand cmd2 = new SqlCommand(query2, conn);
                 SqlDataReader rdr2 = cmd2.ExecuteReader();
-                string email = rdr2["email"].ToString();
+                rdr2.Read();
+                string email = rdr2["Email"].ToString();
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress("suyashchavan.sit.comp@gmail.com");
                 mail.To.Add(email);
@@ -222,7 +223,9 @@ namespace SecondProject.Admin
                 cmd.ExecuteNonQuery();
                 string query2 = $"select email from [user] where userid = '{id}'";
                 SqlCommand cmd2 = new SqlCommand(query2, conn);
+                
                 SqlDataReader rdr2 = cmd2.ExecuteReader();
+                rdr2.Read();
                 string email = rdr2["email"].ToString();
                 MailMessage mail = new MailMessage();
                 mail.From = new MailAddress("suyashchavan.sit.comp@gmail.com");

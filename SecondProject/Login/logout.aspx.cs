@@ -5,19 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace SecondProject.MasterPage
+namespace SecondProject.Login
 {
-    public partial class Admin : System.Web.UI.MasterPage
+    public partial class logout : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-        }
-
-        public void logout()
-        {
+            Session.Clear();
             Session.Abandon();
-            //Session.Clear();
-            //Response.Redirect("Login/Login.aspx");
+            
+            Response.Redirect("Login/Login.aspx");
         }
     }
 }
