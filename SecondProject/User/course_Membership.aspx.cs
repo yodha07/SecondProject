@@ -17,9 +17,9 @@ namespace SecondProject.User
         SqlConnection conn;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string cs = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
-            conn = new SqlConnection(cs);
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
             conn.Open();
+            
             if (!IsPostBack)
             {
                 fetchPlan();
@@ -28,13 +28,15 @@ namespace SecondProject.User
 
         public void fetchPlan()
         {
-            string q = $"exec fetchbundle2";
+
+            string q = $"exec fetchbundle3";
             SqlCommand cmd = new SqlCommand(q, conn);
             SqlDataReader rdr = cmd.ExecuteReader();
             DataList1.DataSource = rdr;
             DataList1.DataBind();
 
         }
+
         protected void DataList1_ItemDataBound(object sender, DataListItemEventArgs e)
         {
             int PlanId = int.Parse(DataBinder.Eval(e.Item.DataItem, "PlanId").ToString());
@@ -50,16 +52,20 @@ namespace SecondProject.User
         }
         protected void DataList1_ItemCommand(object source, DataListCommandEventArgs e)
         {
-            int userid = 1;
+            int userid = int.Parse(Session["UserId"].ToString());
             string sourceName = "Membership";
+            int planId = int.Parse(e.CommandArgument.ToString());
             if (e.CommandName == "buynow")
             {
                 int planid = int.Parse(e.CommandArgument.ToString());
                 string q = $"SELECT * FROM MembershipPlan_Subcourse AS mps JOIN MembershipPlan AS mp ON mp.PlanId = mps.PlanId WHERE mp.PlanId ={planid}";
                 SqlCommand cmd = new SqlCommand(q, conn);
                 SqlDataReader rdr = cmd.ExecuteReader();
+
+
                 double total = 0;
                 List<int> subcourseidlist = new List<int>();
+
                 while (rdr.Read())
                 {
                     int subcourseid = int.Parse(rdr["SubCourseId"].ToString());
@@ -67,6 +73,7 @@ namespace SecondProject.User
                     total = double.Parse(rdr["Price"].ToString());
                 }
                 Session["total"] = total;
+
                 foreach (int subcourseid in subcourseidlist)
                 {
                     DateTime dt = DateTime.Now.Date;
@@ -79,6 +86,8 @@ namespace SecondProject.User
                     cmd2.ExecuteNonQuery();
 
                 }
+
+
 
                 string keyId = "rzp_test_Kl7588Yie2yJTV";
                 string keySecret = "6dN9Nqs7M6HPFMlL45AhaTgp";
@@ -101,7 +110,7 @@ namespace SecondProject.User
 
                 // Generate checkout form and redirect user to Razorpay payment page
                 string razorpayScript = $@"
-            var options = {{
+                var options = {{
                 'key': '{keyId}',
                 'amount': {amount * 100},
                 'currency': 'INR',
@@ -111,11 +120,12 @@ namespace SecondProject.User
                 'handler': function(response) {{
                     // Handle successful payment response
                     alert('Payment successful. Payment ID: ' + response.razorpay_payment_id);
+                    window.location.href = 'DownloadInvoice.aspx'
                 }},
-                  'modal': {{
+                'modal': {{
                 'ondismiss': function () {{
                     // On closing Razorpay (❌ or cancel)
-                    window.location.href = 'generatepdf.aspx?status=cancel';
+                    //window.location.href = 'DownloadInvoice.aspx?status=cancel';
                 }}
             }},
                 'prefill': {{
@@ -134,11 +144,35 @@ namespace SecondProject.User
 
                 ClientScript.RegisterStartupScript(this.GetType(), "razorpayScript", razorpayScript, true);
 
+
+               
+
+                string query = $"exec fetchbundleByPlanId {planId}";
+                SqlCommand command = new SqlCommand(query, conn);
+                SqlDataReader reader = command.ExecuteReader();
+                List<string> PlanName = new List<string>();
+                List<double> Price = new List<double>();
+                while (reader.Read())
+                {
+                    string planname = reader["PlanName"].ToString();
+                    double price = double.Parse(reader["Price"].ToString());
+                    PlanName.Add(planname);
+                    Price.Add(price);
+                    Session["Title"] = PlanName;
+                    Session["Price"] = Price;
+                }
+
+                Session["Title"] = PlanName;
+                Session["Price"] = Price;
+                Response.Redirect("DownloadInvoice.aspx");
             }
 
 
-
         }
+
+
+
+
         protected void DataList2_ItemDataBound(object sender, DataListItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -154,7 +188,7 @@ namespace SecondProject.User
         }
         public void pdfgenrate()
         {
-            int userid = 1;
+            int userid = int.Parse(Session["UserId"].ToString());
             string q = $"select * from Cart join SubCourse on SubCourse.SubCourseId=Cart.SubCourseId where UserId={userid}";
             SqlCommand cmd = new SqlCommand(q, conn);
             SqlDataReader rdr = cmd.ExecuteReader();

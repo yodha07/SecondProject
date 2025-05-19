@@ -35,7 +35,7 @@
                                 <h5 class="fw-bold text-dark mb-1"><%# Eval("Title") %></h5>
                                 <p class="mb-1 text-secondary"><strong>Price:</strong> <%# Eval("Price") %></p>
 
-                                <%--<p class="mb-0 text-secondary"><strong>Rating:</strong> <%#//GetStarsHtml(Eval("Rating")) %></p>--%>
+                                <p class="mb-0 text-secondary"><strong>Rating:</strong> <%#GetStarsHtml(Eval("Rating")) %></p>
                             </div>
 
                             <!-- Remove Button -->

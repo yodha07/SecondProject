@@ -53,7 +53,7 @@
                 <!-- Links -->
                 <div class="hidden md:flex space-x-6 items-center">
                     <a href="UserDashBoard.aspx" class="hover:text-blue-400 transition">Dashboard</a>
-                    <a href="#" class="hover:text-blue-400 transition">Buy Courses</a>
+                    <a href="WebForm1.aspx" class="hover:text-blue-400 transition">Buy Courses</a>
                     <a href="course_Membership.aspx" class="hover:text-blue-400 transition">Membership</a>
 
                     <a href="Cart.aspx" class="hover:text-blue-400 transition">My Cart</a>

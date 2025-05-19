@@ -22,7 +22,7 @@ namespace SecondProject.User
         {
             // Example data (replace with actual session values)
             string customerName = "John Doe"; // Session["CustomerName"]
-            string customerEmail = Session["Email"].ToString(); // Session["CustomerEmail"]
+            string customerEmail = "john@example.com"; // Session["CustomerEmail"]
             string invoiceNumber = GenerateInvoiceNumber().ToString();
             DateTime invoiceDate = DateTime.Now;
 
@@ -94,9 +94,9 @@ namespace SecondProject.User
 
             Response.Clear();
             Response.ContentType = "application/pdf";
-            Response.AddHeader("Content-Disposition", "attachment; filename=Invoice_" + invoiceNumber + ".pdf");
+            //Response.AddHeader("Content-Disposition", "attachment; filename=Invoice_" + invoiceNumber + ".pdf");
             // Or to auto-open:
-            // Response.AddHeader("Content-Disposition", "inline; filename=Invoice_" + invoiceNumber + ".pdf");
+            Response.AddHeader("Content-Disposition", "inline; filename=Invoice_" + invoiceNumber + ".pdf");
 
             Response.Buffer = true;
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -124,5 +124,4 @@ namespace SecondProject.User
             return timePart + randomPart;
         }
     }
-
 }

@@ -27,7 +27,7 @@ namespace SecondProject.User
         protected void Page_Load(object sender, EventArgs e)
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
-            string cs = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+            //string cs = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
             conn.Open();
             //filldatalist();
             if (!IsPostBack)
@@ -133,32 +133,30 @@ namespace SecondProject.User
                     //Response.Redirect("WebForm1.aspx");
                 }
             }
-            protected void btnPayNow_Click(object sender, EventArgs e)
-            {
-            int userid = int.Parse(Session["UserId"].ToString());
-
-
+        protected void btnPayNow_Click(object sender, EventArgs e)
+        {
+            int userid = 1;
             string keyId = "rzp_test_Kl7588Yie2yJTV";
-                string keySecret = "6dN9Nqs7M6HPFMlL45AhaTgp";
+            string keySecret = "6dN9Nqs7M6HPFMlL45AhaTgp";
 
-                RazorpayClient razorpayClient = new RazorpayClient(keyId, keySecret);
+            RazorpayClient razorpayClient = new RazorpayClient(keyId, keySecret);
 
-                double amount = double.Parse(Session["total"].ToString());
+            double amount = double.Parse(Session["total"].ToString());
 
 
-                // Create an order
-                Dictionary<string, object> options = new Dictionary<string, object>();
-                options.Add("amount", amount * 100); // Amount should be in paisa (multiply by 100 for rupees)
-                options.Add("currency", "INR");
-                options.Add("receipt", "order_receipt_123");
-                options.Add("payment_capture", 1); // Auto capture payment
+            // Create an order
+            Dictionary<string, object> options = new Dictionary<string, object>();
+            options.Add("amount", amount * 100); // Amount should be in paisa (multiply by 100 for rupees)
+            options.Add("currency", "INR");
+            options.Add("receipt", "order_receipt_123");
+            options.Add("payment_capture", 1); // Auto capture payment
 
-                Razorpay.Api.Order order = razorpayClient.Order.Create(options);
+            Razorpay.Api.Order order = razorpayClient.Order.Create(options);
 
-                string orderId = order["id"].ToString();
+            string orderId = order["id"].ToString();
 
-                // Generate checkout form and redirect user to Razorpay payment page
-                string razorpayScript = $@"
+            // Generate checkout form and redirect user to Razorpay payment page
+            string razorpayScript = $@"
             var options = {{
                 'key': '{keyId}',
                 'amount': {amount * 100},
@@ -169,11 +167,12 @@ namespace SecondProject.User
                 'handler': function(response) {{
                     // Handle successful payment response
                     alert('Payment successful. Payment ID: ' + response.razorpay_payment_id);
+                    window.location.href = 'DownloadInvoice.aspx'
                 }},
                 'modal': {{
                 'ondismiss': function () {{
                     // On closing Razorpay (❌ or cancel)
-                    window.location.href = 'generatepdf.aspx?status=cancel';
+                    //window.location.href = 'DownloadInvoice.aspx?status=cancel';
                 }}
             }},
                 'prefill': {{
@@ -188,20 +187,20 @@ namespace SecondProject.User
             var rzp1 = new Razorpay(options);
             rzp1.open();";
 
-                // Register the script on the page
+            // Register the script on the page
 
-                ClientScript.RegisterStartupScript(this.GetType(), "razorpayScript", razorpayScript, true);
+            ClientScript.RegisterStartupScript(this.GetType(), "razorpayScript", razorpayScript, true);
 
 
-                updateSubCourseAccess();
-                pdfgenrate();
-                deleteCart();
+            updateSubCourseAccess();
+            pdfgenrate();
+            deleteCart();
 
-                //string q = $"delete from Cart where UserID={userid}";
-                //SqlCommand cmd= new SqlCommand(q, conn);
-                //cmd.ExecuteNonQuery();
-            }
-            public void deleteCart()
+            //string q = $"delete from Cart where UserID={userid}";
+            //SqlCommand cmd= new SqlCommand(q, conn);
+            //cmd.ExecuteNonQuery();
+        }
+        public void deleteCart()
             {
             int userid = int.Parse(Session["UserId"].ToString());
             string q = $"delete from Cart where UserID={userid}";
