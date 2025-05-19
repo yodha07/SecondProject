@@ -135,7 +135,7 @@ namespace SecondProject.User
             }
         protected void btnPayNow_Click(object sender, EventArgs e)
         {
-            int userid = 1;
+            int userid = int.Parse(Session["UserId"].ToString()); ;
             string keyId = "rzp_test_Kl7588Yie2yJTV";
             string keySecret = "6dN9Nqs7M6HPFMlL45AhaTgp";
 
