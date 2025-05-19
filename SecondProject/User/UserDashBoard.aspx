@@ -14,8 +14,9 @@
         margin: 0;
         font-family: 'Roboto', sans-serif;
         background-color: #e5e5e5;
-        height: 100vh;
-        overflow: hidden;
+        min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     }
 
     .chat-toggle-btn {
