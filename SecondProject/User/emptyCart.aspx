@@ -22,6 +22,7 @@
             color: #888;
         }
     </style>
+    <form runat="server">
         
           <div class="container empty-cart">
             <div class="cart-box col-md-6 mx-auto">
@@ -32,11 +33,13 @@
                 <p class="text-muted">Looks like you haven’t added anything to your cart yet.</p>
                 <asp:Button ID="btnContinue" runat="server" Text="Continue Shopping" CssClass="btn btn-primary mt-3" OnClick="btnContinue_Click"  />
             </div>
+
     
 
     <!-- Bootstrap JS and Icons -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.js"></script>
 
     </div>
+        </form>
 
 </asp:Content>

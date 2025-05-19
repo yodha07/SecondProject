@@ -2,8 +2,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
+        <form runat="server">
+
         <strong>Search By Master Course: </strong> <asp:DropDownList ID="DropDownList1" runat="server"  AutoPostBack="True" DataSourceID="SqlDataSource1" DataTextField="Title" DataValueField="MasterCourseId" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged"   style="padding:6px 12px; border:2px solid #007bff; border-radius:6px; background-color:white  ; color:#003366; font-size:14px; width:250px; outline:none;"></asp:DropDownList>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ELearning_ProjectConnectionString2 %>" ProviderName="<%$ ConnectionStrings:ELearning_ProjectConnectionString2.ProviderName %>" SelectCommand="SELECT [Title], [MasterCourseId] FROM [MasterCourse]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ELearning_ProjectConnectionString %>" SelectCommand="SELECT [MasterCourseId], [Title] FROM [MasterCourse]"></asp:SqlDataSource>
 
 
 
@@ -31,7 +33,7 @@
                 Price: <%# Eval("Price") %>
             </h5>
             <h5 class="card-title" style="font-size: 14px; color: #003366; margin-bottom: 5px;">
-                <%--Ratings: <%# GetStarsHtml (Eval("Rating")) %>--%>
+                Ratings: <%# GetStarsHtml (Eval("Rating")) %> 
             </h5>  
             <asp:Button runat="server" Text="Add To Cart" CommandName="addtocart" CssClass="btn btn-primary" 
                         CommandArgument='<%# Eval("SubCourseId") %>' 
@@ -41,6 +43,9 @@
 </ItemTemplate>
 
 </asp:DataList>
+
+</form>
+
 
 
 

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <asp:ContentPlaceHolder ID="head" runat="server" />
 
@@ -45,54 +46,53 @@
 
                 <!-- Links -->
                 <div class="d-none d-md-flex gap-3 my-2 align-items-center">
-                    <a href="#top" class="text-light hover:text-info mx-5">Dashboard</a>
+                    <a href="admindashboard.aspx" class="text-light hover:text-info mx-5">Dashboard</a>
 
                     <div class="dropdown mx-2">
                         <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Master Course</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Master Course</a>
-                            <a class="dropdown-item" href="#master-course-list">Master Course List</a>
+                            <a class="dropdown-item" href="AddMasterCourse.aspx">Add Master Course</a>
+                            <a class="dropdown-item" href="MasterCourseList.aspx">Master Course List</a>
                         </div>
                     </div>
 
                     <div class="dropdown mx-2">
                         <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Sub Course</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="Webform2.aspx">Add Sub Course</a>
-                            <a class="dropdown-item" href="#">Sub Course List</a>
+                            <a class="dropdown-item" href="AddSubCourse.aspx">Add Sub Course</a>
+                            <a class="dropdown-item" href="SubCourseList.aspx">Sub Course List</a>
                         </div>
                     </div>
 
                     <div class="dropdown mx-2">
                         <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Topics</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Topics</a>
-                            <a class="dropdown-item" href="#">Topic List</a>
+                            <a class="dropdown-item" href="AddTopics.aspx">Add Topics</a>
+                            <a class="dropdown-item" href="TopicList.aspx">Topic List</a>
                         </div>
                     </div>
 
                     <div class="dropdown mx-2">
                         <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Materials</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Materials</a>
-                            <a class="dropdown-item" href="#">Assignment List</a>
-                            <a class="dropdown-item" href="#">MCQ List</a>
+                            <a class="dropdown-item" href="AddMaterial.aspx">Add Materials</a>
+                            <a class="dropdown-item" href="AssignmentList.aspx">Assignment List</a>
+                            <a class="dropdown-item" href="MCQList.aspx">MCQ List</a>
                         </div>
                     </div>
 
                     <div class="dropdown mx-2">
                         <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Memberships</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Add Memberships</a>
-                            <a class="dropdown-item" href="#">Memberships List</a>
-                            <a class="dropdown-item" href="#">MasterMembershipPlan</a>
-                            <a class="dropdown-item" href="#">MasterMembershipPlanList</a>
+                            <a class="dropdown-item" href="AddMembership.aspx">Add Memberships</a>
+                            <a class="dropdown-item" href="MembershipList.aspx">Memberships List</a>
+                            <a class="dropdown-item" href="AddMasterPlanName.aspx">Add Master Membership Plan</a>
+                            <a class="dropdown-item" href="MasterPlanNameList.aspx">Master Membership Plan List</a>
                         
                         </div>
                     </div>
 
-                    <a href="#courses" class="text-light hover:text-info">All Courses List</a>
-                    <a href="#chat" class="text-light hover:text-info">Chat</a>
+                    <a href="adminchat.aspx" class="text-light hover:text-info">Chat</a>
                     <a href="logout.aspx" class="text-danger font-weight-bold ml-3">Logout</a>
                 </div>
             </div>

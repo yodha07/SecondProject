@@ -22,13 +22,13 @@ namespace SecondProject.User
 
             SqlConnection conn;
             int cartcount = 0;
-            protected void Page_Load(object sender, EventArgs e)
-            {
-                string cs = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-                conn = new SqlConnection(cs);
-                conn.Open();
-                //filldatalist();
-                if (!IsPostBack)
+       
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
+            conn.Open();
+            //filldatalist();
+            if (!IsPostBack)
                 {
                     filldatalist();
                     checkCart();
@@ -38,9 +38,9 @@ namespace SecondProject.User
             }
             public void filldatalist()
             {
-                int userid = 1;
-                //string q = "select * from SubCourse join Cart on SubCourse.SubCourseId=Cart.SubCourseId where UserId='" + userid + "'";
-                string q = $"exec fetchcart {userid}";
+            int userid = int.Parse(Session["UserId"].ToString());
+            //string q = "select * from SubCourse join Cart on SubCourse.SubCourseId=Cart.SubCourseId where UserId='" + userid + "'";
+            string q = $"exec fetchcart {userid}";
                 SqlCommand cmd = new SqlCommand(q, conn);
                 SqlDataReader rdr = cmd.ExecuteReader();
                 DataList1.DataSource = rdr;
@@ -86,8 +86,8 @@ namespace SecondProject.User
             }
             protected void DataList1_ItemCommand(object source, DataListCommandEventArgs e)
             {
-                int userid = 1;
-                if (e.CommandName == "dltcart")
+            int userid = int.Parse(Session["UserId"].ToString());
+            if (e.CommandName == "dltcart")
                 {
                     int cartid = int.Parse(e.CommandArgument.ToString());
 
@@ -108,8 +108,8 @@ namespace SecondProject.User
             }
             public void checkCart()
             {
-                int userid = 1;
-                string q = $"select * from Cart where UserId={userid}";
+            int userid = int.Parse(Session["UserId"].ToString());
+            string q = $"select * from Cart where UserId={userid}";
                 SqlCommand cmd = new SqlCommand(q, conn);
                 SqlDataReader rdr = cmd.ExecuteReader();
                 if (rdr.HasRows)
@@ -127,8 +127,10 @@ namespace SecondProject.User
             }
             protected void btnPayNow_Click(object sender, EventArgs e)
             {
-                int userid = 1;
-                string keyId = "rzp_test_Kl7588Yie2yJTV";
+            int userid = int.Parse(Session["UserId"].ToString());
+
+
+            string keyId = "rzp_test_Kl7588Yie2yJTV";
                 string keySecret = "6dN9Nqs7M6HPFMlL45AhaTgp";
 
                 RazorpayClient razorpayClient = new RazorpayClient(keyId, keySecret);
@@ -193,15 +195,15 @@ namespace SecondProject.User
             }
             public void deleteCart()
             {
-                int userid = 1;//session use
-                string q = $"delete from Cart where UserID={userid}";
+            int userid = int.Parse(Session["UserId"].ToString());
+            string q = $"delete from Cart where UserID={userid}";
                 SqlCommand cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
             }
             public void updateSubCourseAccess()
             {
-                int userid = 1;//session use
-                string q = $"select * from Cart where UserId={userid}";
+            int userid = int.Parse(Session["UserId"].ToString());
+            string q = $"select * from Cart where UserId={userid}";
                 SqlCommand cmd = new SqlCommand(q, conn);
                 SqlDataReader rdr = cmd.ExecuteReader();
                 List<int> subcourseids = new List<int>();
@@ -225,9 +227,9 @@ namespace SecondProject.User
             }
             public void pdfgenrate()
             {
-                int userid = 1;
-                //string q = $"select * from Cart join SubCourse on SubCourse.SubCourseId=Cart.SubCourseId where UserId={userid}";
-                string q = $"exec Billgenerate {userid}";
+            int userid = int.Parse(Session["UserId"].ToString());
+            //string q = $"select * from Cart join SubCourse on SubCourse.SubCourseId=Cart.SubCourseId where UserId={userid}";
+            string q = $"exec Billgenerate {userid}";
                 SqlCommand cmd = new SqlCommand(q, conn);
                 SqlDataReader rdr = cmd.ExecuteReader();
 

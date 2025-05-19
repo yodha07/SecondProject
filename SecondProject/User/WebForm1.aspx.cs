@@ -15,8 +15,7 @@ namespace SecondProject.User
         SqlConnection conn;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string cs = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
-            conn = new SqlConnection(cs);
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
             conn.Open();
             //filldatalist();
             if (!IsPostBack)
@@ -66,7 +65,7 @@ namespace SecondProject.User
 
         protected void DataList1_ItemCommand(object source, DataListCommandEventArgs e)
         {
-            int userid = 1;
+            int userid=int.Parse(Session["UserId"].ToString());
             if (e.CommandName == "addtocart")
             {
 

@@ -51,11 +51,18 @@ namespace SecondProject.Admin
 
         protected void DataList1_DeleteCommand(object source, DataListCommandEventArgs e)
         {
-            int id = int.Parse(e.CommandArgument.ToString());
-            string q2 = $"exec el_DeletePlan '{id}'";
-            SqlCommand cmd2 = new SqlCommand(q2, conn);
-            cmd2.ExecuteNonQuery();
-            fetchPlan();
+            try
+            {
+                int id = int.Parse(e.CommandArgument.ToString());
+                string q2 = $"exec el_DeletePlan '{id}'";
+                SqlCommand cmd2 = new SqlCommand(q2, conn);
+                cmd2.ExecuteNonQuery();
+                fetchPlan();
+            }
+            catch (SqlException e2)
+            {
+                Response.Write("<script>alert('User has bought this plan so unable to delete it')</script>");
+            }
         }
 
         protected void DataList1_EditCommand(object source, DataListCommandEventArgs e)

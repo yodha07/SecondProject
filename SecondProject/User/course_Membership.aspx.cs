@@ -17,7 +17,7 @@ namespace SecondProject.User
         SqlConnection conn;
         protected void Page_Load(object sender, EventArgs e)
         {
-            string cs = ConfigurationManager.ConnectionStrings["dbconn"].ConnectionString;
+            string cs = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
             conn = new SqlConnection(cs);
             conn.Open();
             if (!IsPostBack)

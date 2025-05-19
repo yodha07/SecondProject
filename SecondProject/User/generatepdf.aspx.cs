@@ -22,7 +22,7 @@ namespace SecondProject.User
         {
             // Example data (replace with actual session values)
             string customerName = "John Doe"; // Session["CustomerName"]
-            string customerEmail = "john@example.com"; // Session["CustomerEmail"]
+            string customerEmail = Session["Email"].ToString(); // Session["CustomerEmail"]
             string invoiceNumber = GenerateInvoiceNumber().ToString();
             DateTime invoiceDate = DateTime.Now;
 

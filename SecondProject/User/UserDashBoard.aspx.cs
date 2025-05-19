@@ -168,6 +168,9 @@ namespace SecondProject.User
                 else
                 {
                     //Response.Write("<script>alert('You have not Login from past 1 Week\nPlease contact Admin');</script>");
+                    
+                   
+                    
                     string script = "alert('You have not Login from past 1 Week\\nPlease contact Admin'); window.location='~/Login/Login.aspx';";
                     ClientScript.RegisterStartupScript(this.GetType(), "alertAndRedirect", script, true);
                     Session.Clear();
