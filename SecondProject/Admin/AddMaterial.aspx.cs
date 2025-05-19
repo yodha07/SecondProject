@@ -49,8 +49,17 @@ namespace SecondProject.Admin
                 }
 
                 string fileName = topicName + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ext;
-                string filePath = "Assignments/" + fileName;
-                FileUpload1.SaveAs(Server.MapPath(filePath));
+                string filePath ="Assignments/" + fileName;
+                string folderPath = Server.MapPath("~/Assignments");
+
+                // Create folder if it doesn't exist
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                string fullPath = Server.MapPath("~/" + filePath);
+                FileUpload1.SaveAs(fullPath);
                 string query = $"exec el_AddAssignment '{id}','{filePath}'";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 int r = cmd.ExecuteNonQuery();

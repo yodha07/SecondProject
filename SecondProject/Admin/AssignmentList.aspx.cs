@@ -124,8 +124,16 @@ namespace SecondProject.Admin
                 }
                 string fileName = newTitle + "_" + DateTime.Now.ToString("yyyyMMddHHmmssfff") + ext;
                 filePath = "Assignments/" + fileName;
+                string folderPath = Server.MapPath("~/Assignments");
 
-                FileUpload1.SaveAs(Server.MapPath(filePath));
+                // Create folder if it doesn't exist
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                string fullPath = Server.MapPath("~/" + filePath);
+                FileUpload1.SaveAs(fullPath);
             }
             else
             {

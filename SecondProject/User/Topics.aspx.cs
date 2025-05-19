@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Microsoft.AspNet.Identity;
+//using Microsoft.AspNet.Identity;
 using SecondProject.MasterPage;
 using static SecondProject.User.MyCourses;
 

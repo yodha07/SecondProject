@@ -85,6 +85,9 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="#">Add Memberships</a>
                             <a class="dropdown-item" href="#">Memberships List</a>
+                            <a class="dropdown-item" href="#">MasterMembershipPlan</a>
+                            <a class="dropdown-item" href="#">MasterMembershipPlanList</a>
+                        
                         </div>
                     </div>
 

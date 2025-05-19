@@ -67,7 +67,7 @@ namespace SecondProject.Admin
             {
                 DropDownList2.Items.Add(new ListItem("--Select Sub Course--", "0"));
                 int mcid = int.Parse(DropDownList1.SelectedValue);
-                string query2 = $"exec  s '{mcid}'";
+                string query2 = $"exec el_GetSubCourses '{mcid}'";
                 SqlCommand cmd2 = new SqlCommand(query2, conn);
                 SqlDataReader rdr2 = cmd2.ExecuteReader();
                 while (rdr2.Read())

@@ -67,7 +67,7 @@ namespace SecondProject.Admin
 
         private void UpdateSc(int id)
         {
-            string q = $"exec el_GetSubCoursesById '{id}'";
+            string q = $"exec el_GetSubCourseById '{id}'";
             SqlCommand cmd = new SqlCommand(q, conn);
             SqlDataReader rdr = cmd.ExecuteReader();
             if (rdr.Read())
