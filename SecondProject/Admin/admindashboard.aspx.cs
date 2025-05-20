@@ -21,8 +21,6 @@ namespace SecondProject.Admin
         {
 
             string role = Session["Role"].ToString() ;
-
-
             if(role != "Admin")
             {
                 Response.Redirect("~/Login/Login.aspx");
