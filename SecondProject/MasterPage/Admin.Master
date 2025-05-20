@@ -293,12 +293,125 @@ a[href="adminchat.aspx"]::after {
                     <span class="navbar-brand ml-3 text-dark">Admin Panel</span>
                 </nav>
 
+
+                <!-- Links -->
+                <div class="d-none d-md-flex gap-3 my-2 align-items-center">
+                    <a href="admindashboard.aspx" class="text-light hover:text-info mx-5">Dashboard</a>
+
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Master Course</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="AddMasterCourse.aspx">Add Master Course</a>
+                            <a class="dropdown-item" href="MasterCourseList.aspx">Master Course List</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Sub Course</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="AddSubCourse.aspx">Add Sub Course</a>
+                            <a class="dropdown-item" href="SubCourseList.aspx">Sub Course List</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Topics</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="AddTopics.aspx">Add Topics</a>
+                            <a class="dropdown-item" href="TopicList.aspx">Topic List</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Materials</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="AddMaterial.aspx">Add Materials</a>
+                            <a class="dropdown-item" href="AssignmentList.aspx">Assignment List</a>
+                            <a class="dropdown-item" href="MCQList.aspx">MCQ List</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown mx-2">
+                        <a class="text-light dropdown-toggle" href="#" data-toggle="dropdown">Memberships</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="AddMembership.aspx">Add Memberships</a>
+                            <a class="dropdown-item" href="MembershipList.aspx">Memberships List</a>
+                            <a class="dropdown-item" href="AddMasterPlanName.aspx">Add Master Membership Plan</a>
+                            <a class="dropdown-item" href="MasterPlanNameList.aspx">Master Membership Plan List</a>
+                        
+                        </div>
+                    </div>
+
+                    <a href="adminchat.aspx" class="text-light hover:text-info">Chat</a>
+                    <a href="admin_logout.aspx" class="text-danger font-weight-bold ml-3">Logout</a>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="d-md-none d-none px-4 pt-2 pb-3" id="admin-mobile-menu">
+            <a href="#top" class="d-block text-white py-1">Dashboard</a>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Master Course</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add Master Course</a>
+                    <a class="dropdown-item" href="#master-course-list">Master Course List</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Sub Course</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="Webform2.aspx">Add Sub Course</a>
+                    <a class="dropdown-item" href="#">Sub Course List</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Topics</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add Topics</a>
+                    <a class="dropdown-item" href="#">Topic List</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Materials</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add Materials</a>
+                    <a class="dropdown-item" href="#">Assignment List</a>
+                    <a class="dropdown-item" href="#">MCQ List</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="d-block text-white py-1 dropdown-toggle" data-toggle="dropdown" href="#">Memberships</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Add Memberships</a>
+                    <a class="dropdown-item" href="#">Memberships List</a>
+                </div>
+            </div>
+
+            <a href="#courses" class="d-block text-white py-1">All Courses List</a>
+            <a href="#chat" class="d-block text-white py-1">Chat</a>
+            <a href="#logut" class="d-block text-danger font-weight-bold mt-2">Logout</a>
+            <%--<input type="button" text="Logout" class="d-block text-danger font-weight-bold mt-2 " onclick="logout()"/> --%>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container-fluid mt-3">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    </div>
                 <div class="container-fluid mt-4">
                     <asp:ContentPlaceHolder ID="MainContent" runat="server" />
                 </div>
             </div>
         </div>
     
+
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
