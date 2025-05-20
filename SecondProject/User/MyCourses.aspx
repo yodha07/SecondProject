@@ -1,23 +1,22 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/User.Master" AutoEventWireup="true" CodeBehind="MyCourses.aspx.cs" Inherits="SecondProject.User.MyCourses" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background: linear-gradient(to bottom left, #e2e8f0, #0ea5e9);
-            height: 100vh;
-        }
+    
 
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-    </style>
-
-</asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <script src="https://cdn.tailwindcss.com"></script>
+<style>
+    body {
+        background: linear-gradient(to bottom left, #e2e8f0, #0ea5e9);
+        height: 100vh;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+</style>
     <form runat="server">
         <div class="max-w-7xl mx-auto px-4 py-8  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
             <asp:Repeater ID="rptSubCourses" runat="server">

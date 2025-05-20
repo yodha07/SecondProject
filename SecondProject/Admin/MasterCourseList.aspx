@@ -54,12 +54,10 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Thumbnail">
-                                <ItemTemplate>
-                                    <asp:Image ID="Image1" runat="server"  ImageUrl ='<%# Eval("Thumbnail") %>' Height="100px" Width="70px"/>
-
-                                    <%--<img src='<%# Eval("Thumbnail") %>'  style="width: 60px; height: auto;" />--%>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                            <ItemTemplate>
+                                <img src='<%# ResolveUrl("~/") + Eval("Thumbnail") %>' alt="Thumbnail" style="width: 60px; height: auto;" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
 
                             <asp:TemplateField HeaderText="Action">
                                 <ItemTemplate>

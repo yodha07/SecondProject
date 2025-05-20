@@ -261,7 +261,12 @@
     <Content Include="assets\js\custom.js" />
     <Content Include="assets\js\isotope.min.js" />
     <Content Include="assets\js\owl-carousel.js" />
+<<<<<<< HEAD
     <Content Include="Admin\admin_logout.aspx" />
+=======
+    <Content Include="Images\elogo.jpeg" />
+    <Content Include="Images\elogopng.png" />
+>>>>>>> 8a06c0705ed75129356c9748466c1bdab4a50fa4
     <Content Include="Login\Login.aspx" />
     <Content Include="Login\logout.aspx" />
     <Content Include="Login\reason_form.aspx" />
@@ -558,7 +563,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assignments\" />
-    <Folder Include="Images\" />
     <Folder Include="Thumbnails\" />
   </ItemGroup>
   <PropertyGroup>
