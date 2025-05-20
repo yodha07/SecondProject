@@ -223,6 +223,7 @@
     <Content Include="Admin\admindashboard.aspx" />
     <Content Include="Admin\AdminGreet.aspx" />
     <Content Include="Admin\AssignmentList.aspx" />
+    <Content Include="Admin\logoutadmin.aspx" />
     <Content Include="Admin\MasterCourseList.aspx" />
     <Content Include="Admin\MasterPlanNameList.aspx" />
     <Content Include="Admin\MCQList.aspx" />
@@ -274,6 +275,7 @@
     <Content Include="User\emptyCart.aspx" />
     <Content Include="User\generatepdf.aspx" />
     <Content Include="User\logout.aspx" />
+    <Content Include="User\logoutuser.aspx" />
     <Content Include="User\MCQs.aspx" />
     <Content Include="User\MyCourses.aspx" />
     <Content Include="User\Topics.aspx" />
@@ -358,6 +360,13 @@
     </Compile>
     <Compile Include="Admin\AssignmentList.aspx.designer.cs">
       <DependentUpon>AssignmentList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\logoutadmin.aspx.cs">
+      <DependentUpon>logoutadmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\logoutadmin.aspx.designer.cs">
+      <DependentUpon>logoutadmin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\MasterCourseList.aspx.cs">
       <DependentUpon>MasterCourseList.aspx</DependentUpon>
@@ -485,6 +494,13 @@
     </Compile>
     <Compile Include="User\logout.aspx.designer.cs">
       <DependentUpon>logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\logoutuser.aspx.cs">
+      <DependentUpon>logoutuser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\logoutuser.aspx.designer.cs">
+      <DependentUpon>logoutuser.aspx</DependentUpon>
     </Compile>
     <Compile Include="User\MCQs.aspx.cs">
       <DependentUpon>MCQs.aspx</DependentUpon>

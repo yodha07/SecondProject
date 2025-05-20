@@ -164,15 +164,11 @@ namespace SecondProject.User
 
                 Session["Title"] = PlanName;
                 Session["Price"] = Price;
-                Response.Redirect("DownloadInvoice.aspx");
+                
             }
 
 
         }
-
-
-
-
         protected void DataList2_ItemDataBound(object sender, DataListItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)

@@ -5,7 +5,7 @@
         <form runat="server">
 
         <strong>Search By Master Course: </strong> <asp:DropDownList ID="DropDownList1" runat="server"  AutoPostBack="True" DataSourceID="SqlDataSource1" DataTextField="Title" DataValueField="MasterCourseId" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged"   style="padding:6px 12px; border:2px solid #007bff; border-radius:6px; background-color:white  ; color:#003366; font-size:14px; width:250px; outline:none;"></asp:DropDownList>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ELearning_ProjectConnectionString %>" SelectCommand="SELECT [MasterCourseId], [Title] FROM [MasterCourse]"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ELearning_ProjectConnectionString2 %>" SelectCommand="SELECT [MasterCourseId], [Title] FROM [MasterCourse]" ProviderName="<%$ ConnectionStrings:ELearning_ProjectConnectionString2.ProviderName %>"></asp:SqlDataSource>
 
 
 
@@ -16,7 +16,7 @@
          style="border: 1px solid black ; border-radius: 8px; margin: 10px; 
                 box-shadow: 0 4px 6px rgba(0,123,255,0.2); background-color: white; 
                 width: 250px; height: 400px; display: flex; flex-direction: column; overflow: hidden;">
-        <img class="card-img-top" src='<%# Eval("Thumbnail") %>' alt="Card image cap" 
+        <img class="card-img-top" src='<%# ResolveUrl("~/") + Eval("Thumbnail") %>' alt="Card image cap" 
              style="height: 150px; width: 100%; object-fit: cover; border-bottom: 1px solid #007bff;" />
         <div class="card-body" 
              style="padding: 10px; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1;">

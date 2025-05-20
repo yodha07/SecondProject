@@ -14,7 +14,7 @@
             display: inline-flex;
             height: 92vh;
             max-width:2000px;
-            padding-top: 80px;
+            
         }
 
         .sidebar {
@@ -135,7 +135,7 @@
                     </asp:LinkButton>
                 </ItemTemplate>
             </asp:Repeater>
-            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ELearning_ProjectConnectionString %>" ProviderName="<%$ ConnectionStrings:ELearning_ProjectConnectionString.ProviderName %>" SelectCommand="SELECT [FullName] FROM [User]"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ELearning_ProjectConnectionString2 %>" ProviderName="<%$ ConnectionStrings:ELearning_ProjectConnectionString.ProviderName %>" SelectCommand="SELECT [FullName] FROM [User]"></asp:SqlDataSource>
         </div>
 
         <!-- Chat Area -->

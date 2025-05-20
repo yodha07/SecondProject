@@ -195,7 +195,7 @@ a[href="adminchat.aspx"]::after {
             <!-- Sidebar -->
             <div class="border-right" id="sidebar-wrapper">
                 <div class="sidebar-heading font-weight-bold">
-    <img src="images/elogopng.png" alt="Logo" />
+    <img src="~/Images/elogopng.png" alt="Logo" />
 </div>
 
                 <div class="list-group list-group-flush">
@@ -280,7 +280,7 @@ a[href="adminchat.aspx"]::after {
                     <a href="adminchat.aspx" class="list-group-item list-group-item-action">
                         <i class="fas fa-comments"></i> Chat
                     </a>
-                    <a href="logout.aspx" class="list-group-item list-group-item-action text-danger font-weight-bold ">
+                    <a href="logoutadmin.aspx" class="list-group-item list-group-item-action text-danger font-weight-bold ">
     <i class="fas fa-sign-out-alt"></i> Logout
 </a>
                 </div>

@@ -19,11 +19,8 @@ namespace SecondProject.User
     
         public partial class Cart : System.Web.UI.Page
         {
-
             SqlConnection conn;
-            int cartcount = 0;
-
-       
+            int cartcount = 0;       
         protected void Page_Load(object sender, EventArgs e)
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
@@ -37,13 +34,9 @@ namespace SecondProject.User
                 checkCart();
                 Label2.Text = cartcount.ToString() + " Item";
                 lblTotalItems.Text = cartcount.ToString();
-            }
-
-
-
+            }           
             
-            
-            }
+        }
             public void filldatalist()
             {
             int userid = int.Parse(Session["UserId"].ToString());
@@ -207,8 +200,8 @@ namespace SecondProject.User
                 SqlCommand cmd = new SqlCommand(q, conn);
                 cmd.ExecuteNonQuery();
             }
-            public void updateSubCourseAccess()
-            {
+        public void updateSubCourseAccess()
+        {
             int userid = int.Parse(Session["UserId"].ToString());
             string q = $"select * from Cart where UserId={userid}";
                 SqlCommand cmd = new SqlCommand(q, conn);
@@ -231,7 +224,7 @@ namespace SecondProject.User
                     SqlCommand cmd2 = new SqlCommand(q2, conn);
                     cmd2.ExecuteNonQuery();
                 }
-            }
+        }
             public void pdfgenrate()
             {
             int userid = int.Parse(Session["UserId"].ToString());

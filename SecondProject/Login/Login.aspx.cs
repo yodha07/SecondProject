@@ -124,7 +124,7 @@ namespace SecondProject.Login
             conn.Open();
 
 
-            SqlCommand cmd = new SqlCommand("SELECT UserId, Role FROM [User] WHERE Email = @Email AND PasswordHash = @Password", conn);
+            SqlCommand cmd = new SqlCommand("SELECT UserId, Role,FullName FROM [User] WHERE Email = @Email AND PasswordHash = @Password", conn);
 
             cmd.Parameters.AddWithValue("@Email", email);
 
@@ -142,12 +142,17 @@ namespace SecondProject.Login
 
                 string role = reader["Role"].ToString();
 
+                string name = reader["FullName"].ToString();
+
+
 
                 Session["Email"] = email;
 
                 Session["Role"] = role;
 
                 Session["UserId"] = userId;
+
+                Session["name"] = name;
 
 
                 reader.Close();

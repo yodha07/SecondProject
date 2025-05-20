@@ -5,8 +5,7 @@
 <head runat="server">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-    </title>
+    <title></title>
 
     <!-- Bootstrap & FontAwesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -20,11 +19,11 @@
         }
 
         #wrapper {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-    flex-wrap: nowrap;
-}
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+            flex-wrap: nowrap;
+        }
 
         #sidebar-wrapper {
             width: 250px;
@@ -34,15 +33,15 @@
             transition: all 0.3s ease;
         }
 
-        #sidebar-wrapper .list-group-item {
-            border: none !important;
-            color: #000;
-            transition: background-color 0.3s, box-shadow 0.3s ease;
-        }
+            #sidebar-wrapper .list-group-item {
+                border: none !important;
+                color: #000;
+                transition: background-color 0.3s, box-shadow 0.3s ease;
+            }
 
-        #sidebar-wrapper .list-group-item:hover {
-            background-color: #f2f2f2;
-        }
+                #sidebar-wrapper .list-group-item:hover {
+                    background-color: #f2f2f2;
+                }
 
         .sidebar-heading {
             padding: 1rem 1.5rem;
@@ -54,16 +53,16 @@
             border-bottom: 1px solid #ddd;
         }
 
-        .sidebar-heading img {
-            height: 40px;
-            width: auto;
-            border-radius: 5px;
-            background-color: #ffffff;
-            padding: 4px;
-            margin-right: 10px;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
-            object-fit: contain;
-        }
+            .sidebar-heading img {
+                height: 40px;
+                width: auto;
+                border-radius: 5px;
+                background-color: #ffffff;
+                padding: 4px;
+                margin-right: 10px;
+                box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+                object-fit: contain;
+            }
 
         .list-group-item.active-parent {
             box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
@@ -86,64 +85,64 @@
             flex: 1;
             width: 100%;
         }
+
         .sidebar-heading {
-    padding: 0;
-    background-color: #ffffff; /* or match your sidebar color */
-    height: 80px; /* adjust as needed */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+            padding: 0;
+            background-color: #ffffff; /* or match your sidebar color */
+            height: 80px; /* adjust as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-.sidebar-heading img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 0;
-    display: block;
-}
-
+            .sidebar-heading img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 0;
+                display: block;
+            }
     </style>
-
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <body>
-    
+
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="border-right" id="sidebar-wrapper">
-                            <div class="sidebar-heading font-weight-bold">
-    <img src="images/elogopng.png" alt="Logo" />
-</div>
+            <div class="sidebar-heading font-weight-bold">
+              <image src="~/Images/elogopng.png"></image>
+            </div>
 
             <div class="list-group list-group-flush">
                 <!-- Dashboard Link -->
                 <a href="UserDashBoard.aspx" class="list-group-item list-group-item-action">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                    <i class="fas fa-tachometer-alt"></i>Dashboard
                 </a>
 
                 <!-- Buy Courses Link -->
                 <a href="WebForm1.aspx" class="list-group-item list-group-item-action">
-                    <i class="fas fa-shopping-cart"></i> Buy Courses
+                    <i class="fas fa-shopping-cart"></i>Buy Courses
                 </a>
 
                 <!-- Membership Link -->
                 <a href="course_Membership.aspx" class="list-group-item list-group-item-action">
-                    <i class="fas fa-user-tag"></i> Membership
+                    <i class="fas fa-user-tag"></i>Membership
                 </a>
 
                 <!-- My Cart Link -->
                 <a href="Cart.aspx" class="list-group-item list-group-item-action">
-                    <i class="fas fa-cart-plus"></i> My Cart
+                    <i class="fas fa-cart-plus"></i>My Cart
                 </a>
 
                 <!-- My Courses Link -->
                 <a href="MyCourses.aspx" class="list-group-item list-group-item-action">
-                    <i class="fas fa-book"></i> My Courses
+                    <i class="fas fa-book"></i>My Courses
                 </a>
 
                 <!-- Logout Link -->
-                <a href="logout.aspx" class="list-group-item list-group-item-action text-danger font-weight-bold">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                <a href="logoutuser.aspx" class="list-group-item list-group-item-action text-danger font-weight-bold">
+                    <i class="fas fa-sign-out-alt"></i>Logout
                 </a>
             </div>
         </div>
