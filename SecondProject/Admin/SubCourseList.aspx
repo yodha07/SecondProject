@@ -60,8 +60,8 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Thumbnail">
                                 <ItemTemplate>
-                                <img src='<%# ResolveUrl("~/") + Eval("Thumbnail") %>' alt="Thumbnail" style="width: 60px; height: auto;" />
-                            </ItemTemplate>
+                                    <img src='<%# Eval("Thumbnail") %>' alt="Thumbnail" style="width: 60px; height: auto;" />
+                                </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Price">
                                 <ItemTemplate>

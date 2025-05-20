@@ -10,17 +10,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
     <style>
-    html, body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    min-height: 100vh;
-    height: auto;
-    background-color: #f8f9fa;
+    body {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+        background-color: #e5e5e5;
+        min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
-}
-
+    }
 
     .chat-toggle-btn {
         position: fixed;
@@ -141,12 +138,6 @@
         margin-bottom: 30px;
         text-align: center;
     }
-    .chat-modal,
-.chat-toggle-btn {
-    pointer-events: auto;
-    max-height: 100vh;
-}
-
 </style>
 
                     <form id="form2" runat="server">
