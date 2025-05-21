@@ -5,9 +5,12 @@
 <head runat="server">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title></title
     <title>
         <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
     </title>
+
 
     <!-- Bootstrap & FontAwesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -56,10 +59,171 @@
                     <a href="WebForm1.aspx" class="hover:text-blue-400 transition">Buy Courses</a>
                     <a href="course_Membership.aspx" class="hover:text-blue-400 transition">Membership</a>
 
+
+        <style>
+        #wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+            flex-wrap: nowrap;
+        }
+
+        #sidebar-wrapper {
+            width: 250px;
+            height: 100vh;
+            background-color: #ffffff;
+            color: #000;
+            transition: all 0.3s ease;
+        }
+
+            #sidebar-wrapper .list-group-item {
+                border: none !important;
+                color: #000;
+                transition: background-color 0.3s, box-shadow 0.3s ease;
+            }
+
+                #sidebar-wrapper .list-group-item:hover {
+                    background-color: #f2f2f2;
+                }
+
+        .sidebar-heading {
+            padding: 1rem 1.5rem;
+            font-size: 1.4rem;
+            background-color: #ffffff;
+            color: #000;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .sidebar-heading img {
+                height: 40px;
+                width: auto;
+                border-radius: 5px;
+                background-color: #ffffff;
+                padding: 4px;
+                margin-right: 10px;
+                box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+                object-fit: contain;
+            }
+
+        .list-group-item.active-parent {
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            background-color: #eaf4ff;
+        }
+
+        .bg-secondary {
+            background-color: #f0f0f0 !important;
+        }
+
+        .list-group-item i {
+            margin-right: 8px;
+        }
+
+        #wrapper.toggled #sidebar-wrapper {
+            margin-left: -250px;
+        }
+
+        #page-content-wrapper {
+            flex: 1;
+            width: 100%;
+        }
+
+        .sidebar-heading {
+            padding: 0;
+            background-color: #ffffff; /* or match your sidebar color */
+            height: 80px; /* adjust as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .sidebar-heading img {
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 0;
+                display: block;
+            }
+    </style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading font-weight-bold">
+              <image src="~/Images/elogopng.png"></image>
+            </div>
+
+            <div class="list-group list-group-flush">
+                <!-- Dashboard Link -->
+                <a href="UserDashBoard.aspx" class="list-group-item list-group-item-action">
+                    <i class="fas fa-tachometer-alt"></i>Dashboard
+                </a>
+
+                <!-- Buy Courses Link -->
+                <a href="WebForm1.aspx" class="list-group-item list-group-item-action">
+                    <i class="fas fa-shopping-cart"></i>Buy Courses
+                </a>
+
+                <!-- Membership Link -->
+                <a href="course_Membership.aspx" class="list-group-item list-group-item-action">
+                    <i class="fas fa-user-tag"></i>Membership
+                </a>
+
+                <!-- My Cart Link -->
+                <a href="Cart.aspx" class="list-group-item list-group-item-action">
+                    <i class="fas fa-cart-plus"></i>My Cart
+                </a>
+
+                <!-- My Courses Link -->
+                <a href="MyCourses.aspx" class="list-group-item list-group-item-action">
+                    <i class="fas fa-book"></i>My Courses
+                </a>
+
+                <!-- Logout Link -->
+                <a href="logoutuser.aspx" class="list-group-item list-group-item-action text-danger font-weight-bold">
+                    <i class="fas fa-sign-out-alt"></i>Logout
+                </a>
+
+    </style>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
+</head>
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="bg-gray-900 text-white fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="#" class="text-xl font-bold text-white">assskEdu</a>
+                </div>
+
+                <!-- Hamburger for mobile -->
+                <div class="md:hidden">
+                    <button type="button" class="text-gray-300 hover:text-white focus:outline-none focus:text-white" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Links -->
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="UserDashBoard.aspx" class="hover:text-blue-400 transition">Dashboard</a>
+                    <a href="WebForm1.aspx" class="hover:text-blue-400 transition">Buy Courses</a>
+                    <a href="course_Membership.aspx" class="hover:text-blue-400 transition">Membership</a>
+
                     <a href="Cart.aspx" class="hover:text-blue-400 transition">My Cart</a>
                     <a href="MyCourses.aspx" class="hover:text-blue-400 transition">My Courses</a>
                     <a href="logout.aspx" class="text-red-400 hover:text-red-600 font-semibold">Logout</a>
                 </div>
+
             </div>
         </div>
 

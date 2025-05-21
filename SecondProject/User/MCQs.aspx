@@ -1,17 +1,15 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/User.Master" AutoEventWireup="true" CodeBehind="MCQs.aspx.cs" Inherits="SecondProject.User.MCQs" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
 
-    <style>
-        body {
-            background: linear-gradient(to bottom left, #e2e8f0, #0ea5e9);
-            height: 100vh;
-        }
-    </style>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<style>
+    body {
+        background: linear-gradient(to bottom left, #e2e8f0, #0ea5e9);
+        height: 100vh;
+    }
+</style>
     <form runat="server">
         <div class="max-w-3xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
             <h1 class="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">MCQs for

@@ -32,6 +32,101 @@
 </head>
 <body>
 
+    
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar -->
+            <div class="border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading font-weight-bold">
+    <img src="~/Images/elogopng.png" alt="Logo" />
+</div>
+
+                <div class="list-group list-group-flush">
+                    <a href="admindashboard.aspx" class="list-group-item list-group-item-action">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+
+                    <!-- Master Course -->
+                    <a href="#masterCourseSub" class="list-group-item list-group-item-action collapsed" data-toggle="collapse" aria-expanded="false" onclick="highlight(this)">
+                        <i class="fas fa-book"></i> Master Course
+                    </a>
+                    <div class="collapse" id="masterCourseSub">
+                        <a href="AddMasterCourse.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-plus-circle"></i> Add Master Course
+                        </a>
+                        <a href="MasterCourseList.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-list"></i> Master Course List
+                        </a>
+                    </div>
+
+                    <!-- Sub Course -->
+                    <a href="#subCourseSub" class="list-group-item list-group-item-action collapsed" data-toggle="collapse" aria-expanded="false" onclick="highlight(this)">
+                        <i class="fas fa-layer-group"></i> Sub Course
+                    </a>
+                    <div class="collapse" id="subCourseSub">
+                        <a href="AddSubCourse.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-plus-circle"></i> Add Sub Course
+                        </a>
+                        <a href="SubCourseList.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-list"></i> Sub Course List
+                        </a>
+                    </div>
+
+                    <!-- Topics -->
+                    <a href="#topicsSub" class="list-group-item list-group-item-action collapsed" data-toggle="collapse" aria-expanded="false" onclick="highlight(this)">
+                        <i class="fas fa-list-alt"></i> Topics
+                    </a>
+                    <div class="collapse" id="topicsSub">
+                        <a href="AddTopics.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-plus-circle"></i> Add Topics
+                        </a>
+                        <a href="TopicList.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-list"></i> Topic List
+                        </a>
+                    </div>
+
+                    <!-- Materials -->
+                    <a href="#materialsSub" class="list-group-item list-group-item-action collapsed" data-toggle="collapse" aria-expanded="false" onclick="highlight(this)">
+                        <i class="fas fa-folder-open"></i> Materials
+                    </a>
+                    <div class="collapse" id="materialsSub">
+                        <a href="AddMaterial.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-upload"></i> Add Materials
+                        </a>
+                        <a href="AssignmentList.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-tasks"></i> Assignment List
+                        </a>
+                        <a href="MCQList.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-question-circle"></i> MCQ List
+                        </a>
+                    </div>
+
+                    <!-- Memberships -->
+                    <a href="#membershipsSub" class="list-group-item list-group-item-action collapsed" data-toggle="collapse" aria-expanded="false" onclick="highlight(this)">
+                        <i class="fas fa-user-tag"></i> Memberships
+                    </a>
+                    <div class="collapse" id="membershipsSub">
+                        <a href="AddMembership.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-plus-circle"></i> Add Memberships
+                        </a>
+                        <a href="MembershipList.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-users"></i> Memberships List
+                        </a>
+                        <a href="AddMasterPlanName.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-plus-circle"></i> Add Master Plan
+                        </a>
+                        <a href="MasterPlanNameList.aspx" class="list-group-item list-group-item-action pl-5">
+                            <i class="fas fa-list"></i> Master Plan List
+                        </a>
+                    </div>
+
+                    <a href="adminchat.aspx" class="list-group-item list-group-item-action">
+                        <i class="fas fa-comments"></i> Chat
+                    </a>
+                    <a href="logoutadmin.aspx" class="list-group-item list-group-item-action text-danger font-weight-bold ">
+    <i class="fas fa-sign-out-alt"></i> Logout
+</a>
+
+
     <!-- NAVIGATION BAR -->
     <nav class="bg-dark text-white fixed w-full top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,6 +134,7 @@
                 <!-- Logo -->
                 <div class="d-flex align-items-center">
                     <a href="#" class="text-xl font-bold text-white">assskEdu</a>
+
                 </div>
 
                 <!-- Hamburger -->

@@ -6,6 +6,8 @@
     <form runat="server">
     
         <style>
+            
+
 
      <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -27,7 +29,7 @@
                         <div class="d-flex bg-light border rounded p-3 mb-4 shadow-sm align-items-center" style="transition: all 0.3s ease; width: 50vw;">
                             <!-- Image -->
                             <div style="flex: 0 0 140px;">
-                                <img src='<%# Eval("Thumbnail") %>' alt="Item Image" class="img-fluid rounded border" style="width: 130px; border: 2px solid #000;" />
+                                <img src='<%# ResolveUrl("~/") + Eval("Thumbnail") %>' alt="Item Image" class="img-fluid rounded border" style="width: 130px; border: 2px solid #000;" />
                             </div>
 
                             <!-- Info -->

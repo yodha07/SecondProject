@@ -16,6 +16,9 @@ namespace SecondProject.User
 {
     public partial class Topics : System.Web.UI.Page
     {
+
+        SqlConnection conn;
+
         [Serializable]
         public class TopicItem
         {
@@ -36,12 +39,17 @@ namespace SecondProject.User
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+            conn = new SqlConnection(connStr);
+            conn.Open();
+            month_duration();
             if (Session["Email"] == null || Session["UserId"] == null)
             {
                 Response.Redirect("~/Login/Login.aspx");
             }
             if (!IsPostBack)
             {
+                month_duration();
                 BindPlaylist();
                 UpdateNavigationButtons();
 
@@ -75,7 +83,6 @@ namespace SecondProject.User
             SqlConnection conn = new SqlConnection(connStr);
 
             {
-                conn.Open();
 
                 SqlCommand cmd1 = new SqlCommand("SELECT TopicId FROM Topic WHERE SubCourseId = @SubCourseId ORDER BY TopicId OFFSET @Offset ROWS FETCH NEXT 1 ROWS ONLY", conn);
                 cmd1.Parameters.AddWithValue("@SubCourseId", subCourseId);
@@ -167,38 +174,55 @@ namespace SecondProject.User
             {
                 int subCourseId = Convert.ToInt32(Request.QueryString["scid"]);
                 var topics = GetTopics(subCourseId);
-                ViewState["Topics"] = topics;
+
+                if (topics != null && topics.Count > 0)
+                {
+                    ViewState["Topics"] = topics;
+                }
+                else
+                {
+                    
+                    Response.Write("<script>alert('No topics found for this SubCourse.');</script>");
+                }
             }
         }
+
 
         protected void month_duration()
         {
             int user = GetLoggedInUserId();
             int subcourseid = Convert.ToInt32(Request.QueryString["scid"]);
-            string query = $"exec month_limit '{user}' , '{subcourseid}'";
             string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
-            SqlConnection conn = new SqlConnection(connStr);
 
-            SqlCommand cmd = new SqlCommand(query, conn);
-            SqlDataReader rdr = cmd.ExecuteReader();
-            if (rdr.HasRows)
+            using (SqlConnection conn = new SqlConnection(connStr))
             {
-                rdr.Read();
-                DateTime purchase_date = Convert.ToDateTime(rdr["PurchaseDate"]);
-                TimeSpan month = DateTime.Now - purchase_date;
-                if (month.TotalDays <= 30)
+                string query = $"exec month_limit '{user}' , '{subcourseid}'";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    int current_days = (int)month.TotalDays;
-                    int daysRemaining = 30 - current_days;
-                    Label2.Text = $"You Have {daysRemaining} Days Reamining";
-                }
-                else
-                {
-
-                    Label2.Text = "Your access to this subcourse has expired.";
+                    conn.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    {
+                        if (rdr.Read())
+                        {
+                            DateTime purchase_date = Convert.ToDateTime(rdr["PurchaseDate"]);
+                            TimeSpan month = DateTime.Now - purchase_date;
+                            if (month.TotalDays <= 30)
+                            {
+                                int current_days = (int)month.TotalDays;
+                                int daysRemaining = 30 - current_days;
+                                Label2.Text = $"You Have {daysRemaining} Days Remaining";
+                            }
+                            else
+                            {
+                                Label2.Text = "Your access to this subcourse has expired.";
+                                Panel1.Visible = false;
+                            }
+                        }
+                    }
                 }
             }
         }
+
 
         private int GetLoggedInUserId()
         {
@@ -213,10 +237,10 @@ namespace SecondProject.User
             }
             else
             {
-                conn.Open();
                 SqlCommand cmd = new SqlCommand("SELECT UserId FROM [User] WHERE Email = @Email", conn);
                 cmd.Parameters.AddWithValue("@Email", email);
 
+                conn.Open();
                 SqlDataReader rdr = cmd.ExecuteReader();
                 if (rdr.Read())
                 {
@@ -224,7 +248,6 @@ namespace SecondProject.User
                     Session["UserId"] = userID;
                     Label1.Text = "UserId:" + Session["UserId"].ToString();
                 }
-                conn.Close();
             }
             return userID;
         }
@@ -238,8 +261,7 @@ namespace SecondProject.User
             string userName = "";
             string courseTitle = "";
 
-            conn.Open();
-
+            
             SqlCommand cmdUser = new SqlCommand("SELECT Fullname FROM [User] WHERE UserId = @UserId", conn);
             {
                 cmdUser.Parameters.AddWithValue("@UserId", userId);
@@ -259,7 +281,6 @@ namespace SecondProject.User
                     courseTitle = titleResult.ToString();
             }
 
-            conn.Close();
 
 
             string fileName = $"Certificate_{userName}_{DateTime.Now:dd-MM-yyyy_HH-mm-ss}.pdf";
@@ -315,7 +336,7 @@ namespace SecondProject.User
             File.WriteAllBytes(fullPath, pdfBytes);
 
             string IssuedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            conn.Open();  // REOPEN after reading
+            
             SqlCommand insertCmd = new SqlCommand(@"
     INSERT INTO Certificate (UserId, SubCourseId, IssuedDate, CertificatePath) 
     VALUES (@UserId, @SubCourseId, @IssuedDate, @CertificatePath)", conn);
@@ -324,7 +345,7 @@ namespace SecondProject.User
             insertCmd.Parameters.AddWithValue("@IssuedDate", IssuedDate);
             insertCmd.Parameters.AddWithValue("@CertificatePath", "/" + filePath);
             insertCmd.ExecuteNonQuery();
-            conn.Close();
+
 
 
             if (System.IO.File.Exists(fullPath))
@@ -372,7 +393,7 @@ namespace SecondProject.User
         private void BindTopics()
         {
             var topics = ViewState["Topics"] as List<TopicItem>;
-            if (topics == null) return;
+            if (topics == null || topics.Count == 0) return;
 
             mvTopics.Views.Clear();
             foreach (var topic in topics)
@@ -382,10 +403,14 @@ namespace SecondProject.User
                 mvTopics.Views.Add(view);
             }
 
-            mvTopics.ActiveViewIndex = (ActiveViewIndex >= 0 && ActiveViewIndex < mvTopics.Views.Count)
-                ? ActiveViewIndex
-                : 0;
+            if (mvTopics.Views.Count > 0)
+            {
+                mvTopics.ActiveViewIndex = (ActiveViewIndex >= 0 && ActiveViewIndex < mvTopics.Views.Count)
+                    ? ActiveViewIndex
+                    : 0;
+            }
         }
+
 
 
         private void BindPlaylist()
@@ -445,12 +470,9 @@ namespace SecondProject.User
         {
             int userId = GetLoggedInUserId();
             int subCourseId = Convert.ToInt32(Request.QueryString["scid"]);
-            string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
 
-            using (SqlConnection conn = new SqlConnection(connStr))
             {
                 SqlCommand cmd = new SqlCommand($"INSERT INTO User_SubCourseProgress (UserId, SubCourseId, VideosWatched) VALUES ('{userId}', '{subCourseId}', 1)", conn);
-                conn.Open();
                 cmd.ExecuteNonQuery();
             }
         }
