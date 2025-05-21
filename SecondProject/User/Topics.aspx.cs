@@ -72,23 +72,25 @@ namespace SecondProject.User
         protected void Assignments_Click(object sender, CommandEventArgs e)
         {
             int subCourseId = Convert.ToInt32(e.CommandArgument);
-
-
             int activeIndex = mvTopics.ActiveViewIndex;
 
             int topicId = 0;
             string filePath = "";
 
             string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+
             SqlConnection conn = new SqlConnection(connStr);
-
             {
-
-                SqlCommand cmd1 = new SqlCommand("SELECT TopicId FROM Topic WHERE SubCourseId = @SubCourseId ORDER BY TopicId OFFSET @Offset ROWS FETCH NEXT 1 ROWS ONLY", conn);
+                conn.Open();
+                SqlCommand cmd1 = new SqlCommand(
+                    @"SELECT TopicId 
+              FROM Topic 
+              WHERE SubCourseId = @SubCourseId 
+              ORDER BY TopicId ", conn);
                 cmd1.Parameters.AddWithValue("@SubCourseId", subCourseId);
-                cmd1.Parameters.AddWithValue("@Offset", activeIndex);
 
                 object result = cmd1.ExecuteScalar();
+
                 if (result != null)
                 {
                     topicId = Convert.ToInt32(result);
@@ -96,28 +98,30 @@ namespace SecondProject.User
                     SqlCommand cmd2 = new SqlCommand("SELECT FilePath FROM Assignment WHERE TopicId = @TopicId", conn);
                     cmd2.Parameters.AddWithValue("@TopicId", topicId);
 
-                    SqlDataReader reader = cmd2.ExecuteReader();
-                    if (reader.Read())
+                    using (SqlDataReader reader = cmd2.ExecuteReader())
                     {
-                        filePath = reader["FilePath"].ToString();
-
-                        string physicalPath = Server.MapPath(filePath);
-                        if (File.Exists(physicalPath))
+                        if (reader.Read())
                         {
-                            Response.Clear();
-                            Response.ContentType = "application/pdf";
-                            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(physicalPath));
-                            Response.TransmitFile(physicalPath);
-                            Response.End();
+                            filePath = reader["FilePath"].ToString();
+
+                            string physicalPath = Server.MapPath("~/" + filePath);
+                            if (File.Exists(physicalPath))
+                            {
+                                Response.Clear();
+                                Response.ContentType = "application/pdf";
+                                Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(physicalPath));
+                                Response.TransmitFile(physicalPath);
+                                Response.End();
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('File not found on server.');</script>");
+                            }
                         }
                         else
                         {
-                            Response.Write("<script>alert('File not found on server.');</script>");
+                            Response.Write("<script>alert('No assignment found for this topic.');</script>");
                         }
-                    }
-                    else
-                    {
-                        Response.Write("<script>alert('No assignment found for this topic.');</script>");
                     }
                 }
                 else
@@ -135,7 +139,7 @@ namespace SecondProject.User
                 Response.Redirect($"MCQs.aspx?scid={subCourseId}");
             }
             else
-            { 
+            {
                 Response.Write("Invalid or missing SubCourseId");
             }
         }
@@ -181,7 +185,7 @@ namespace SecondProject.User
                 }
                 else
                 {
-                    
+
                     Response.Write("<script>alert('No topics found for this SubCourse.');</script>");
                 }
             }
@@ -259,114 +263,97 @@ namespace SecondProject.User
             return userID;
         }
 
+
         protected void Certificate_Click(object sender, CommandEventArgs e)
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString);
-            LinkButton btn = (LinkButton)sender;
             int subCourseId = Convert.ToInt32(e.CommandArgument);
             int userId = GetLoggedInUserId();
             string userName = "";
             string courseTitle = "";
 
-            
-            SqlCommand cmdUser = new SqlCommand("SELECT Fullname FROM [User] WHERE UserId = @UserId", conn);
+            string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connStr))
             {
+                conn.Open();
+                SqlCommand cmdUser = new SqlCommand("SELECT Fullname FROM [User] WHERE UserId = @UserId", conn);
                 cmdUser.Parameters.AddWithValue("@UserId", userId);
                 object userResult = cmdUser.ExecuteScalar();
                 if (userResult != null)
                     userName = userResult.ToString();
-            }
 
-            SqlCommand cmdCourse = new SqlCommand(@"SELECT sc.Title AS Title
-    FROM SubCourse sc
-    JOIN MasterCourse mc ON sc.MasterCourseId = mc.MasterCourseId
-    WHERE sc.SubCourseId = @SubCourseId", conn);
-            {
+                SqlCommand cmdCourse = new SqlCommand(@"SELECT sc.Title AS Title
+        FROM SubCourse sc
+        JOIN MasterCourse mc ON sc.MasterCourseId = mc.MasterCourseId
+        WHERE sc.SubCourseId = @SubCourseId", conn);
                 cmdCourse.Parameters.AddWithValue("@SubCourseId", subCourseId);
                 object titleResult = cmdCourse.ExecuteScalar();
                 if (titleResult != null)
                     courseTitle = titleResult.ToString();
-            }
 
+                string fileName = $"Certificate_{userName}_{DateTime.Now:dd-MM-yyyy_HH-mm-ss}.pdf";
+                string filePath = "Certificates/" + fileName;
+                string fullPath = Server.MapPath("~/" + filePath);
 
+                string certificateDir = Server.MapPath("~/Certificates");
+                if (!Directory.Exists(certificateDir))
+                {
+                    Directory.CreateDirectory(certificateDir);
+                }
 
-            string fileName = $"Certificate_{userName}_{DateTime.Now:dd-MM-yyyy_HH-mm-ss}.pdf";
-            string filePath = "Certificates/" + fileName;
-            string fullPath = Server.MapPath("~/" + filePath);
+                string htmlContent = $@"
+        <html>
+            <head>
+                <style>
+                    body {{
+                        font-family: Arial, sans-serif;
+                        text-align: center;
+                    }}
+                    h1 {{
+                        color: #4CAF50;
+                    }}
+                    p {{
+                        font-size: 20px;
+                    }}
+                </style>
+            </head>
+            <body>
+                <h1>Certificate of Completion</h1>
+                <p>This is to certify that</p>
+                <h2>{userName}</h2>
+                <p>has successfully completed the course</p>
+                <h2>{courseTitle}</h2>
+                <p>on {DateTime.Now:dd/MM/yyyy}</p>
+            </body>
+        </html>";
 
-            string certificateDir = Server.MapPath("~/Certificates");
-            if (!Directory.Exists(certificateDir))
-            {
-                Directory.CreateDirectory(certificateDir);
-            }
+                byte[] pdfBytes = GeneratePdfFromHtml(htmlContent);
+                File.WriteAllBytes(fullPath, pdfBytes);
 
-            string logoPath = Server.MapPath("~/Images/Logo.png");
-            string base64Logo = "";
+                SqlCommand insertCmd = new SqlCommand(@"
+            INSERT INTO Certificate (UserId, SubCourseId, IssuedDate, CertificatePath) 
+            VALUES (@UserId, @SubCourseId, @IssuedDate, @CertificatePath)", conn);
+                insertCmd.Parameters.AddWithValue("@UserId", userId);
+                insertCmd.Parameters.AddWithValue("@SubCourseId", subCourseId);
+                insertCmd.Parameters.AddWithValue("@IssuedDate", DateTime.Now);
+                insertCmd.Parameters.AddWithValue("@CertificatePath", "/" + filePath);
+                insertCmd.ExecuteNonQuery();
 
-            if (File.Exists(logoPath))
-            {
-                byte[] imageBytes = File.ReadAllBytes(logoPath);
-                base64Logo = Convert.ToBase64String(imageBytes);
-            }
-
-            string htmlContent = $@"
-            <html>
-                <head>
-                    <style>
-                        body {{
-                            font-family: Arial, sans-serif;
-                            text-align: center;
-                        }}
-                        h1 {{
-                            color: #4CAF50;
-                        }}
-                        p {{
-                            font-size: 20px;
-                        }}
-                    </style>
-                </head>
-                <body>
-                    <h1>Certificate of Completion</h1>
-                    <p>This is to certify that</p>
-                    <h2>{userName}</h2>
-                    <p>has successfully completed the course</p>
-                    <h2>{courseTitle}</h2>
-                    <p>on {DateTime.Now:dd/MM/yyyy}</p>
-                </body>
-            </html>";
-
-
-
-
-            byte[] pdfBytes = GeneratePdfFromHtml(htmlContent);
-
-            File.WriteAllBytes(fullPath, pdfBytes);
-
-            string IssuedDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            
-            SqlCommand insertCmd = new SqlCommand(@"
-    INSERT INTO Certificate (UserId, SubCourseId, IssuedDate, CertificatePath) 
-    VALUES (@UserId, @SubCourseId, @IssuedDate, @CertificatePath)", conn);
-            insertCmd.Parameters.AddWithValue("@UserId", userId);
-            insertCmd.Parameters.AddWithValue("@SubCourseId", subCourseId);
-            insertCmd.Parameters.AddWithValue("@IssuedDate", IssuedDate);
-            insertCmd.Parameters.AddWithValue("@CertificatePath", "/" + filePath);
-            insertCmd.ExecuteNonQuery();
-
-
-
-            if (System.IO.File.Exists(fullPath))
-            {
-                Response.ContentType = "application/pdf";
-                Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(fullPath));
-                Response.TransmitFile(fullPath);
-                Response.End();
-            }
-            else
-            {
-                Response.Write("Not found");
+                if (System.IO.File.Exists(Server.MapPath("~/" + filePath)))
+                {
+                    Response.Clear();
+                    Response.ContentType = "application/pdf";
+                    Response.AppendHeader("Content-Disposition", "attachment; filename=" + Path.GetFileName(filePath));
+                    Response.TransmitFile(Server.MapPath("~/" + filePath));
+                    Response.End(); 
+                }
+                else
+                {
+                    Response.Write("Certificate file not found.");
+                }
             }
         }
+
 
         private byte[] GeneratePdfFromHtml(string htmlContent)
         {
@@ -436,11 +423,11 @@ namespace SecondProject.User
                 btnPrev.Enabled = currentIndex > 0;
                 btnNext.Enabled = currentIndex < topics.Count - 1;
 
-               
+
                 if (currentIndex == topics.Count - 1)
                 {
                     btnCertificate.Enabled = true;
-                    btnCertificate.CommandArgument = topics[0].SubCourseId.ToString(); 
+                    btnCertificate.CommandArgument = topics[0].SubCourseId.ToString();
                 }
                 else
                 {
