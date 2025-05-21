@@ -1,10 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage/User.Master" AutoEventWireup="true" CodeBehind="Topics.aspx.cs" Inherits="SecondProject.User.Topics" %>
 
 
-
-
-
-
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -13,21 +9,25 @@
             color: #3b82f6;
         }
 
-        body {
-            background: linear-gradient(to bottom left, #e2e8f0, #0ea5e9);
-            height: 100vh;
-        }
-
         html, body {
             height: 100%;
             margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom left, #e2e8f0, #0ea5e9);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        textarea {
+            resize: none;
         }
     </style>
     <form runat="server">
         <asp:Panel ID="Panel1" runat="server">
             <!-- MAIN FLEX CONTAINER -->
-            <div class="flex flex-row flex-wrap md:flex-nowrap gap-4 p-4">
-                
+            <div class="flex flex-row flex-wrap md:flex-nowrap gap-4 p-8">
+
                 <!-- VIDEO SECTION -->
                 <div class="flex-1 p-4 bg-[#bae8fd] shadow-lg rounded-lg">
                     <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
@@ -65,6 +65,27 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </div>
+
+                <asp:Panel ID="pnlReview" runat="server" CssClass="bg-white p-6 rounded-xl shadow-md max-w-2xl mx-auto my-6 justify-start">
+                    <asp:Label ID="lblReview" runat="server" Text="Leave a Review:" CssClass="block text-lg font-semibold text-gray-700 mb-2 " />
+
+                    <asp:TextBox
+                        ID="txtReview"
+                        runat="server"
+                        TextMode="MultiLine"
+                        Rows="5"
+                        Columns="50"
+                        CssClass="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none mb-4" />
+
+                    <asp:Button
+                        ID="btnSubmitReview"
+                        runat="server"
+                        Text="Submit"
+                        OnClick="btnSubmitReview_Click"
+                        CssClass="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium" />
+                </asp:Panel>
+
+
             </div>
         </asp:Panel>
     </form>

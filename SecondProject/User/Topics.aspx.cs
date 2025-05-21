@@ -42,14 +42,14 @@ namespace SecondProject.User
             string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
             conn = new SqlConnection(connStr);
             conn.Open();
-            month_duration();
+            //month_duration();
             if (Session["Email"] == null || Session["UserId"] == null)
             {
                 Response.Redirect("~/Login/Login.aspx");
             }
             if (!IsPostBack)
             {
-                month_duration();
+                //month_duration();
                 BindPlaylist();
                 UpdateNavigationButtons();
 
@@ -188,39 +188,46 @@ namespace SecondProject.User
         }
 
 
-        protected void month_duration()
-        {
-            int user = GetLoggedInUserId();
-            int subcourseid = Convert.ToInt32(Request.QueryString["scid"]);
-            string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
+        //protected void month_duration()
+        //{
+        //    int user = GetLoggedInUserId();
+        //    int subcourseid = Convert.ToInt32(Request.QueryString["scid"]);
+        //    string connStr = ConfigurationManager.ConnectionStrings["ELearning_Project"].ConnectionString;
 
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                string query = $"exec month_limit '{user}' , '{subcourseid}'";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
-                {
-                    conn.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    {
-                        if (rdr.Read())
-                        {
-                            DateTime purchase_date = Convert.ToDateTime(rdr["PurchaseDate"]);
-                            TimeSpan month = DateTime.Now - purchase_date;
-                            if (month.TotalDays <= 30)
-                            {
-                                int current_days = (int)month.TotalDays;
-                                int daysRemaining = 30 - current_days;
-                                Label2.Text = $"You Have {daysRemaining} Days Remaining";
-                            }
-                            else
-                            {
-                                Label2.Text = "Your access to this subcourse has expired.";
-                                Panel1.Visible = false;
-                            }
-                        }
-                    }
-                }
-            }
+        //    using (SqlConnection conn = new SqlConnection(connStr))
+        //    {
+        //        string query = $"exec month_limit '{user}' , '{subcourseid}'";
+        //        using (SqlCommand cmd = new SqlCommand(query, conn))
+        //        {
+        //            conn.Open();
+        //            SqlDataReader rdr = cmd.ExecuteReader();
+        //            {
+        //                if (rdr.Read())
+        //                {
+        //                    DateTime purchase_date = Convert.ToDateTime(rdr["PurchaseDate"]);
+        //                    TimeSpan month = DateTime.Now - purchase_date;
+        //                    if (month.TotalDays <= 30)
+        //                    {
+        //                        int current_days = (int)month.TotalDays;
+        //                        int daysRemaining = 30 - current_days;
+        //                        Label2.Text = $"You Have {daysRemaining} Days Remaining";
+        //                    }
+        //                    else
+        //                    {
+        //                        Label2.Text = "Your access to this subcourse has expired.";
+        //                        Panel1.Visible = false;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+
+        protected void btnSubmitReview_Click(object sender, EventArgs e)
+        {
+            string review = txtReview.Text;
+            // Save it to DB or display as needed
         }
 
 
